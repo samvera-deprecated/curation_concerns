@@ -32,6 +32,26 @@ describe Worthwhile::GenericFile do
     end
   end
 
+  describe "assign_id" do
+    context "with noids enabled (by default)" do
+      it "uses the noid service" do
+        expect_any_instance_of(ActiveFedora::Noid::Service).to receive(:mint).once
+        subject.assign_id
+      end
+    end
+
+    context "with noids disabled" do
+      before { Sufia.config.enable_noids = false }
+      after { Sufia.config.enable_noids = true }
+
+      it "does not use the noid service" do
+        expect_any_instance_of(ActiveFedora::Noid::Service).not_to receive(:mint)
+        subject.assign_id
+      end
+    end
+  end
+
+
   describe 'with a parent work' do
     let(:parent_id) { 'id123' }
     let!(:parent) {

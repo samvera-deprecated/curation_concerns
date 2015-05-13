@@ -9,3 +9,13 @@ module Worthwhile
   end
 end
 
+module CurationConcerns
+  module Models
+    class Engine < ::Rails::Engine
+      initializer 'requires' do
+        require 'active_fedora/noid'
+        require 'curation_concerns/noid'
+      end
+    end
+  end
+end

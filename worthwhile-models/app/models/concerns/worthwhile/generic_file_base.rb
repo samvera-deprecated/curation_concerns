@@ -3,7 +3,7 @@ module Worthwhile
     extend ActiveSupport::Concern
     include Hydra::AccessControls::Embargoable
     include Sufia::ModelMethods
-    include Sufia::Noid
+    include CurationConcerns::Noid
     include Sufia::GenericFile::MimeTypes
     include CurationConcerns::GenericFile::Export
     include Sufia::GenericFile::Characterization
