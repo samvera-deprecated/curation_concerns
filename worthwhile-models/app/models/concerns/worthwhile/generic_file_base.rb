@@ -14,7 +14,7 @@ module Worthwhile
     include Sufia::GenericFile::VirusCheck
     include Sufia::GenericFile::FullTextIndexing
     include Hydra::Collections::Collectible
-    include Sufia::GenericFile::Batches
+    include CurationConcerns::GenericFile::Batches
     include Sufia::GenericFile::Indexing
     include Sufia::Permissions::Readable # Only include Sufia::Permissions::Readable, not Sufia::Permissions::Writable
 

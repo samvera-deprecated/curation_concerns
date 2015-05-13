@@ -43,6 +43,17 @@ describe Worthwhile::GenericFile do
 
     subject { Worthwhile::GenericFile.create(batch: parent) }
 
+    describe '#related_files' do
+      let(:sibling) { Worthwhile::GenericFile.create(batch: parent) }
+      before do
+        parent.save!
+      end
+
+      it "has a related file in a batch" do
+        expect(subject.related_files).to eq([sibling])
+      end
+    end
+
     describe '#remove_representative_relationship' do
       let(:some_other_id) { 'something456' }
       before do
