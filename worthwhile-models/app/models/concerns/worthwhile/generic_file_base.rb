@@ -5,7 +5,7 @@ module Worthwhile
     include Sufia::ModelMethods
     include Sufia::Noid
     include Sufia::GenericFile::MimeTypes
-    include Sufia::GenericFile::Export
+    include CurationConcerns::GenericFile::Export
     include Sufia::GenericFile::Characterization
     include Sufia::GenericFile::Derivatives
     include Sufia::GenericFile::Metadata
