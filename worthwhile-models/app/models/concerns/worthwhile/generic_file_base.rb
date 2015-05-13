@@ -3,9 +3,9 @@ module Worthwhile
     extend ActiveSupport::Concern
     include Hydra::AccessControls::Embargoable
     include Sufia::ModelMethods
-    include Sufia::Noid
+    include CurationConcerns::Noid
     include Sufia::GenericFile::MimeTypes
-    include Sufia::GenericFile::Export
+    include CurationConcerns::GenericFile::Export
     include Sufia::GenericFile::Characterization
     include Sufia::GenericFile::Derivatives
     include Sufia::GenericFile::Metadata
@@ -14,7 +14,7 @@ module Worthwhile
     include Sufia::GenericFile::VirusCheck
     include Sufia::GenericFile::FullTextIndexing
     include Hydra::Collections::Collectible
-    include Sufia::GenericFile::Batches
+    include CurationConcerns::GenericFile::Batches
     include Sufia::GenericFile::Indexing
     include Sufia::Permissions::Readable # Only include Sufia::Permissions::Readable, not Sufia::Permissions::Writable
 
