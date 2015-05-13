@@ -66,11 +66,17 @@ describe Worthwhile::GenericFile do
     describe '#related_files' do
       let(:sibling) { Worthwhile::GenericFile.create(batch: parent) }
       before do
-        parent.save!
+        sibling.save!
       end
 
       it "has a related file in a batch" do
         expect(subject.related_files).to eq([sibling])
+      end
+    end
+
+    describe '#processing?' do
+      it "is not currently being processed by a batch" do
+        expect(subject.processing?).to eq false
       end
     end
 
