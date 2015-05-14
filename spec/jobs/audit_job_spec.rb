@@ -33,6 +33,7 @@ describe AuditJob do
     end
   end
 
+  ### TODO - Needs Refactoring after Sufia is Broken up
   # describe "sending mail" do
   #   let(:uri) { file.content.uri }
   #   let(:inbox) { user.mailbox.inbox }

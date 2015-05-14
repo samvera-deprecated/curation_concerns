@@ -41,6 +41,7 @@ describe BatchUpdateJob do
       end
     end
 
+    ### TODO - Needs Refactoring after Sufia is Broken up
     # ContentUpdateEventJob is a sufia app level class
     # describe "sends events" do
     #   let(:s1) { double('one') }
