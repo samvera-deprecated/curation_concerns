@@ -8,7 +8,7 @@ module CurationConcern::Curatable
     # leaving these in causes generic_work_specs to fail
     # include CurationConcerns::Permissions::Readable
     # include CurationConcerns::Permissions::Writable
-    include Sufia::ModelMethods
+    include CurationConcerns::ModelMethods
     include Hydra::Collections::Collectible
     include Solrizer::Common
     include ::CurationConcern::HasRepresentative

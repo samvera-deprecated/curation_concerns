@@ -2,7 +2,7 @@ module Worthwhile
   module GenericFileBase
     extend ActiveSupport::Concern
     include Hydra::AccessControls::Embargoable
-    include Sufia::ModelMethods
+    include CurationConcerns::ModelMethods
     include CurationConcerns::Noid
     include Sufia::GenericFile::MimeTypes
     include CurationConcerns::GenericFile::Export
