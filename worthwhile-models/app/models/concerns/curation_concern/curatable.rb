@@ -5,8 +5,9 @@ module CurationConcern::Curatable
   included do
     include ::CurationConcern::HumanReadableType
     include CurationConcerns::Noid
-    include CurationConcerns::Permissions::Readable
-    include CurationConcerns::Permissions::Writable
+    # leaving these in causes generic_work_specs to fail
+    # include CurationConcerns::Permissions::Readable
+    # include CurationConcerns::Permissions::Writable
     include Sufia::ModelMethods
     include Hydra::Collections::Collectible
     include Solrizer::Common
