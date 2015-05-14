@@ -16,7 +16,7 @@ module Worthwhile
     include Hydra::Collections::Collectible
     include CurationConcerns::GenericFile::Batches
     include Sufia::GenericFile::Indexing
-    include Sufia::Permissions::Readable # Only include Sufia::Permissions::Readable, not Sufia::Permissions::Writable
+    include CurationConcerns::Permissions::Readable # Only include Sufia::Permissions::Readable, not Sufia::Permissions::Writable
 
     included do
       belongs_to :batch, predicate: ActiveFedora::RDF::Fcrepo::RelsExt.isPartOf, class_name: 'ActiveFedora::Base'
