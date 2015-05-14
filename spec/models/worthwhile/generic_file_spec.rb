@@ -32,6 +32,7 @@ describe Worthwhile::GenericFile do
     end
   end
 
+  ### This block extracted from Sufia generic_work_spec.rb
   describe "assign_id" do
     context "with noids enabled (by default)" do
       it "uses the noid service" do
