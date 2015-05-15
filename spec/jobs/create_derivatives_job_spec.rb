@@ -27,7 +27,7 @@ describe CreateDerivativesJob do
         expect(@generic_file.thumbnail).not_to have_content
       end
 
-      it 'generates a thumbnail on job run' do
+      it 'generates a thumbnail on job run', unless: $in_travis do
         subject.run
         @generic_file.reload
         expect(@generic_file.thumbnail).to have_content
@@ -43,7 +43,7 @@ describe CreateDerivativesJob do
         expect(@generic_file.thumbnail).not_to have_content
       end
 
-      it 'does not generate a thumbnail on job run' do
+      it 'does not generate a thumbnail on job run', unless: $in_travis do
         subject.run
         @generic_file.reload
         expect(@generic_file.thumbnail).not_to have_content
@@ -94,7 +94,7 @@ describe CreateDerivativesJob do
       let(:mime_type) { 'video/avi' }
       let(:file_name) { 'countdown.avi' }
 
-      it 'transcodes to webm and mp4' do
+      it 'transcodes to webm and mp4',unless: $in_travis do
         subject.run
         reloaded = @generic_file.reload
         derivative = reloaded.attached_files['webm']
@@ -113,7 +113,7 @@ describe CreateDerivativesJob do
       let(:mime_type) { 'audio/wav' }
       let(:file_name) { 'piano_note.wav' }
 
-      it 'transcodes to mp3 and ogg' do
+      it 'transcodes to mp3 and ogg', unless: $in_travis do
         subject.run
         reloaded = @generic_file.reload
         derivative = reloaded.attached_files['mp3']
