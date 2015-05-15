@@ -19,7 +19,7 @@ describe CreateDerivativesJob do
       allow_any_instance_of(GenericFile).to receive(:mime_type).and_return(mime_type)
       @generic_file.save!
     end
-    context 'with a video (.avi) file', unless: $in_travis do
+    context 'with a video (.avi) file', unless: ENV['TRAVIS'] == 'true' do
       let(:mime_type) { 'video/avi' }
       let(:file_name) { 'countdown.avi' }
 
@@ -27,7 +27,7 @@ describe CreateDerivativesJob do
         expect(@generic_file.thumbnail).not_to have_content
       end
 
-      it 'generates a thumbnail on job run', unless: $in_travis do
+      it 'generates a thumbnail on job run', unless: ENV['TRAVIS'] == 'true' do
         subject.run
         @generic_file.reload
         expect(@generic_file.thumbnail).to have_content
@@ -35,7 +35,7 @@ describe CreateDerivativesJob do
       end
     end
 
-    context 'with an audio (.wav) file', unless: $in_travis do
+    context 'with an audio (.wav) file', unless: ENV['TRAVIS'] == 'true' do
       let(:mime_type) { 'audio/wav' }
       let(:file_name) { 'piano_note.wav' }
 
@@ -43,7 +43,7 @@ describe CreateDerivativesJob do
         expect(@generic_file.thumbnail).not_to have_content
       end
 
-      it 'does not generate a thumbnail on job run', unless: $in_travis do
+      it 'does not generate a thumbnail on job run', unless: ENV['TRAVIS'] == 'true' do
         subject.run
         @generic_file.reload
         expect(@generic_file.thumbnail).not_to have_content
@@ -66,7 +66,7 @@ describe CreateDerivativesJob do
       end
     end
 
-    context 'with an office document (.docx) file', unless: $in_travis do
+    context 'with an office document (.docx) file', unless: ENV['TRAVIS'] == 'true' do
       let(:mime_type) { 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }
       let(:file_name) { 'charter.docx' }
 
@@ -90,11 +90,11 @@ describe CreateDerivativesJob do
       allow_any_instance_of(GenericFile).to receive(:mime_type).and_return(mime_type)
       @generic_file.save!
     end
-    context 'with a video (.avi) file', unless: $in_travis do
+    context 'with a video (.avi) file', unless: ENV['TRAVIS'] == 'true' do
       let(:mime_type) { 'video/avi' }
       let(:file_name) { 'countdown.avi' }
 
-      it 'transcodes to webm and mp4',unless: $in_travis do
+      it 'transcodes to webm and mp4',unless: ENV['TRAVIS'] == 'true' do
         subject.run
         reloaded = @generic_file.reload
         derivative = reloaded.attached_files['webm']
@@ -109,11 +109,11 @@ describe CreateDerivativesJob do
       end
     end
 
-    context 'with an audio (.wav) file', unless: $in_travis do
+    context 'with an audio (.wav) file', unless: ENV['TRAVIS'] == 'true' do
       let(:mime_type) { 'audio/wav' }
       let(:file_name) { 'piano_note.wav' }
 
-      it 'transcodes to mp3 and ogg', unless: $in_travis do
+      it 'transcodes to mp3 and ogg', unless: ENV['TRAVIS'] == 'true' do
         subject.run
         reloaded = @generic_file.reload
         derivative = reloaded.attached_files['mp3']
