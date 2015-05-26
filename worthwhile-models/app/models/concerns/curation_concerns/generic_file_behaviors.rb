@@ -7,7 +7,7 @@ module CurationConcerns
     include CurationConcerns::ModelMethods
     include CurationConcerns::Noid
     include Sufia::GenericFile::MimeTypes
-    include Sufia::GenericFile::Export
+    include CurationConcerns::GenericFile::Export
     include Sufia::GenericFile::Characterization
     include Sufia::GenericFile::Permissions
     include Sufia::GenericFile::Derivatives
