@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe CurationConcern::Work do
+describe CurationConcerns::Work do
   before do
     class EssentialWork < ActiveFedora::Base
-      include CurationConcern::Work 
+      include CurationConcerns::Work
     end
   end
   after do
@@ -13,7 +13,7 @@ describe CurationConcern::Work do
   subject { EssentialWork.new }
 
   it "should mix together all the goodness" do
-    [::CurationConcern::WithGenericFiles, ::CurationConcern::HumanReadableType, Hydra::AccessControls::Embargoable, ::CurationConcern::WithEditors, Sufia::Noid, Sufia::ModelMethods, Hydra::Collections::Collectible, Solrizer::Common].each do |mixin|
+    [::CurationConcerns::WithGenericFiles, ::CurationConcerns::HumanReadableType, Hydra::AccessControls::Embargoable, ::CurationConcerns::WithEditors, Sufia::Noid, Sufia::ModelMethods, Hydra::Collections::Collectible, Solrizer::Common].each do |mixin|
       expect(subject.class.ancestors).to include(mixin)
     end
   end
