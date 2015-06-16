@@ -88,7 +88,7 @@ module CurationConcerns
 
     def add_collection_mixin
       inject_into_file 'app/models/collection.rb', after: /Sufia::Collection.*$/ do
-        "\n  include CurationConcerns::Collection"
+        "\n  include CurationConcerns::CollectionBehavior"
       end
       # inject_into_class 'app/models/collection.rb', Collection, "  include CurationConcerns::Collection"
     end
