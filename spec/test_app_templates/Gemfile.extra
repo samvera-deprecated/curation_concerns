@@ -1,6 +1,6 @@
 gem 'hydra-derivatives', github: 'projecthydra/hydra-derivatives', ref: '13df67f'
 
-gem 'sufia-models', github: 'projecthydra/sufia', ref:'7558ae3'
+#gem 'sufia-models', github: 'projecthydra/sufia', ref:'7558ae3'
 
 gem 'active-fedora', github: 'projecthydra/active_fedora', ref:'57ac754'
 gem 'activefedora-aggregation', github: 'projecthydra-labs/activefedora-aggregation', ref: 'eef02b0'

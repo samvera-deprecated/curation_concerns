@@ -50,8 +50,8 @@ module CurationConcerns
       generic_file.label ||= file_name
       generic_file.title = [generic_file.label] if generic_file.title.blank?
       save_characterize_and_record_committer do
-        if Sufia.config.respond_to?(:after_create_content)
-          Sufia.config.after_create_content.call(generic_file, user)
+        if CurationConcerns.config.respond_to?(:after_create_content)
+          CurationConcerns.config.after_create_content.call(generic_file, user)
         end
       end
     end
@@ -60,8 +60,8 @@ module CurationConcerns
       generic_file.content.restore_version(revision_id)
       generic_file.content.create_version
       save_characterize_and_record_committer do
-        if Sufia.config.respond_to?(:after_revert_content)
-          Sufia.config.after_revert_content.call(generic_file, user, revision_id)
+        if CurationConcerns.config.respond_to?(:after_revert_content)
+          CurationConcerns.config.after_revert_content.call(generic_file, user, revision_id)
         end
       end
     end
@@ -69,8 +69,8 @@ module CurationConcerns
     def update_content(file)
       generic_file.add_file(file, path: file_path, original_name: file.original_filename, mime_type: file.content_type)
       save_characterize_and_record_committer do
-        if Sufia.config.respond_to?(:after_update_content)
-          Sufia.config.after_update_content.call(generic_file, user)
+        if CurationConcerns.config.respond_to?(:after_update_content)
+          CurationConcerns.config.after_update_content.call(generic_file, user)
         end
       end
     end
@@ -81,16 +81,16 @@ module CurationConcerns
       generic_file.attributes = model_attributes
       generic_file.date_modified = DateTime.now
       save do
-        if Sufia.config.respond_to?(:after_update_metadata)
-          Sufia.config.after_update_metadata.call(generic_file, user)
+        if CurationConcerns.config.respond_to?(:after_update_metadata)
+          CurationConcerns.config.after_update_metadata.call(generic_file, user)
         end
       end
     end
 
     def destroy
       generic_file.destroy
-      if Sufia.config.respond_to?(:after_destroy)
-        Sufia.config.after_destroy.call(generic_file.id, user)
+      if CurationConcerns.config.respond_to?(:after_destroy)
+        CurationConcerns.config.after_destroy.call(generic_file.id, user)
       end
     end
 

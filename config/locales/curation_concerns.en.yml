@@ -4,6 +4,23 @@ en:
       index:
         type_tabs:
           all: All
+    division:
+      name: "Your Division at Institution"
+      homepage_url: "#"
+    google_analytics_id: ""
+    institution:
+      name: "Your Institution"
+      homepage_url: "#"
+    product_name: "Repository"
+    search:
+      form:
+        q:
+          label: "Search Repository"
+          placeholder: "Type keywords in here"
+    work:
+      editor:
+        legend: "Content Editors"
+        caption: "Who should be able to make changes to this work?"
   blacklight:
     search:
       fields:
@@ -15,7 +32,7 @@ en:
           language_sim: Language
           based_near_sim: Location
           publisher_sim: Publisher
-          file_format_sim: Format 
+          file_format_sim: Format
           generic_type_sim: Type
         index:
           description_tesim: "Description"
@@ -62,7 +79,3 @@ en:
         visibility_after_embargo:  'then open it up to'
         visibility_during_lease:   'Is available for'
         visibility_after_lease:    'then restrict it to'
-
-
-
-

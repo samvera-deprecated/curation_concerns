@@ -9,7 +9,7 @@ module CurationConcerns
     include CurationConcerns::File::Characterization
     include CurationConcerns::File::Permissions
     include CurationConcerns::File::BasicMetadata
-    include Sufia::GenericFile::Content
+    include CurationConcerns::File::Content
     # include CurationConcerns::File::Versions
     include CurationConcerns::File::VirusCheck
     include CurationConcerns::File::FullTextIndexing
