@@ -4,6 +4,15 @@
 
 A Hydra-based Rails Engine that extends an application, adding the ability to Create, Read, Update and Destroy (CRUD) CurationConcern objects (a.k.a. "Works") and provides a generator for defining new CurationConcern types with custom workflow, views, access controls, etc.
 
+## Dependencies
+
+* [fits](http://projects.iq.harvard.edu/fits) 0.8.4  
+
+To install these dependencies on a Mac
+
+    $ brew install fits
+    
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -18,6 +27,10 @@ Then:
 
     $ rails generate curation_concerns:install
     $ rake db:migrate
+    
+
+
+
 
 # Usage
 
