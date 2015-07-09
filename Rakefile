@@ -4,6 +4,8 @@ require 'bundler/setup'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 Dir.glob('tasks/*.rake').each { |r| import r }
+# Import the curation_concerns:jetty tasks
+import 'curation_concerns-models/lib/tasks/curation_concerns-models_tasks.rake'
 
 require 'jettywrapper'
 require 'engine_cart/rake_task'
