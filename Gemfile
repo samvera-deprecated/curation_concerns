@@ -7,6 +7,8 @@ gem 'slop', '~> 3.6.0' # This just helps us generate a valid Gemfile.lock when R
 
 gem 'curation_concerns-models', path: './curation_concerns-models'
 
+#gem 'web-console', group: :development
+
 group :test do
   gem 'simplecov', '~> 0.9', require: false
   gem 'coveralls', require: false
