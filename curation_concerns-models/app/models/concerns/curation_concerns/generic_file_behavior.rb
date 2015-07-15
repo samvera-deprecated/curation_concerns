@@ -17,6 +17,7 @@ module CurationConcerns
     include CurationConcerns::File::Indexing
     include CurationConcerns::File::BelongsToWorks
     include Hydra::AccessControls::Embargoable
+    include CurationConcerns::File::Derivatives
 
     included do
       attr_accessor :file
@@ -54,5 +55,6 @@ module CurationConcerns
         solr_doc['width_isi'] = Integer(width.first) if width.present?
       end
     end
+
   end
 end

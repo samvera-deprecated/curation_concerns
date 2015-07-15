@@ -41,6 +41,7 @@ This generator makes the following changes to your application:
     append_file 'config/initializers/mime_types.rb',
                      "\nMime::Type.register 'application/x-endnote-refer', :endnote", {verbose: false }
     copy_file 'config/curation_concerns.rb', 'config/initializers/curation_concerns.rb'
+    copy_file 'config/config_derivatives.rb', 'config/initializers/config_derivatives.rb'
     copy_file 'config/redis.yml', 'config/redis.yml'
     copy_file 'config/resque-pool.yml', 'config/resque-pool.yml'
     copy_file 'config/redis_config.rb', 'config/initializers/redis_config.rb'

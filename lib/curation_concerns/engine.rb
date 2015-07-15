@@ -3,6 +3,7 @@ require 'blacklight'
 require 'curation_concerns/models'
 require 'hydra-collections'
 require 'hydra-editor'
+require 'hydra/works'
 
 module CurationConcerns
   class Engine < ::Rails::Engine
