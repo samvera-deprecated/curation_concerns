@@ -1,4 +1,4 @@
-gem 'hydra-head', github:'projecthydra/hydra-head'
+gem 'hydra-head', github:'projecthydra/hydra-head', ref: '4c8263e'
 gem 'hydra-derivatives', github: 'projecthydra/hydra-derivatives', ref: '7a8377c'
 
 gem 'active-fedora', github: 'projecthydra/active_fedora', ref:'6c6f3e9337076a8333eeb6eb46552315cf96264f'
