@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe CurationConcerns::GenericFile do
-
   describe 'audiovisual transcoding' do
     before do
       file = File.open(File.join(fixture_path, file_name), 'r')
@@ -9,7 +8,6 @@ describe CurationConcerns::GenericFile do
       allow_any_instance_of(Hydra::Works::GenericFile::Base).to receive(:mime_type).and_return(mime_type)
       generic_file.save!
     end
-
 
     context 'with a video (.avi) file', unless: $in_travis do
       let(:mime_type) { 'video/avi' }

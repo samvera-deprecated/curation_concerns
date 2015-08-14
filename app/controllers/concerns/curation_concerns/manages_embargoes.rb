@@ -15,7 +15,6 @@ module CurationConcerns
       end
     end
 
-
     def index
       authorize! :discover, :embargo
     end

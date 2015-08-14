@@ -1,2 +1,2 @@
-CurationConcerns.configure do |config|
+CurationConcerns.configure do |_config|
 end

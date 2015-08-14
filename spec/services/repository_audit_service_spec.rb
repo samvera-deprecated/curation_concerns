@@ -9,10 +9,10 @@ describe CurationConcerns::RepositoryAuditService do
     end
   end
 
-  describe "#audit_everything" do
-    it "should audit everything" do
+  describe '#audit_everything' do
+    it 'audits everything' do
       expect_any_instance_of(GenericFile).to receive(:audit)
-      CurationConcerns::RepositoryAuditService.audit_everything
+      described_class.audit_everything
     end
   end
 end

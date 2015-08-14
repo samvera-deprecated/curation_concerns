@@ -5,17 +5,17 @@ describe CurationConcerns::ThumbnailHelper do
   let(:document) { SolrDocument.new work.to_solr }
   subject { helper.thumbnail_tag document, {} }
 
-  context "with a representative" do
+  context 'with a representative' do
     before do
       allow(work).to receive(:representative).and_return('curation_concerns:test123')
     end
-    it "draws the thumbnail" do
+    it 'draws the thumbnail' do
       expect(subject).to eq "<img alt=\"Thumbnail\" class=\"canonical-image\" " \
         "src=\"/downloads/curation_concerns:test123?datastream_id=thumbnail\" />"
     end
   end
 
-  it "draws the default thumbnail" do
+  it 'draws the default thumbnail' do
     expect(subject).to eq "<span class=\"canonical-image\"></span>"
   end
 end

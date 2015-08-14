@@ -10,7 +10,6 @@ module CurationConcerns
       end
     end
 
-
     # Customize the :download ability in your Ability class, or override this method
     def authorize_download!
       # authorize! :download, file # can't use this because Hydra::Ability#download_permissions assumes that files are in Basic Container (and thus include the asset's uri)
@@ -28,7 +27,7 @@ module CurationConcerns
       # f = asset.attached_files[file_path] if file_path   # can't use this because attached_files assumes basic containment
       f = asset.send(file_reference) if valid_file_reference?(file_reference)
       f ||= default_file
-      raise "Unable to find a file for #{asset}" if f.nil?
+      fail "Unable to find a file for #{asset}" if f.nil?
       f
     end
 
@@ -47,14 +46,14 @@ module CurationConcerns
 
     private
 
-    def valid_file_reference?(file_reference)
-      return false if file_reference.nil?
-      # the second part of this is covering the fact that directly_contains_one isn't implemented yet, so :original_file, :thumbnail,:extracted_text are not singular associations (yet)
-      singular_associations.include?(file_reference.to_sym) || [:original_file, :thumbnail,:extracted_text].include?(file_reference.to_sym)
-    end
+      def valid_file_reference?(file_reference)
+        return false if file_reference.nil?
+        # the second part of this is covering the fact that directly_contains_one isn't implemented yet, so :original_file, :thumbnail,:extracted_text are not singular associations (yet)
+        singular_associations.include?(file_reference.to_sym) || [:original_file, :thumbnail, :extracted_text].include?(file_reference.to_sym)
+      end
 
-    def singular_associations
-      asset.association_cache.select {|key,assoc| assoc.kind_of?(ActiveFedora::Associations::SingularAssociation)}.keys
-    end
+      def singular_associations
+        asset.association_cache.select { |_key, assoc| assoc.is_a?(ActiveFedora::Associations::SingularAssociation) }.keys
+      end
   end
 end

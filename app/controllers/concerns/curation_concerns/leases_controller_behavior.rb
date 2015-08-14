@@ -3,7 +3,7 @@ module CurationConcerns
     extend ActiveSupport::Concern
 
     included do
-      skip_before_filter :normalize_identifier, only: :update
+      skip_before_action :normalize_identifier, only: :update
 
       def destroy
         curation_concern.lease_visibility! # If the lease has lapsed, update the current visibility.
@@ -28,9 +28,9 @@ module CurationConcerns
 
     protected
 
-    def _prefixes
-      # This allows us to use the unauthorized template in curation_concerns/base
-      @_prefixes ||= super + ['curation_concerns/base']
-    end
+      def _prefixes
+        # This allows us to use the unauthorized template in curation_concerns/base
+        @_prefixes ||= super + ['curation_concerns/base']
+      end
   end
 end

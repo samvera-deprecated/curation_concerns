@@ -3,7 +3,7 @@ module CurationConcerns
     extend ActiveSupport::Concern
 
     included do
-      skip_before_filter :normalize_identifier, only: :update
+      skip_before_action :normalize_identifier, only: :update
 
       def destroy
         update_files = !curation_concern.under_embargo? # embargo expired
@@ -31,14 +31,15 @@ module CurationConcerns
 
     protected
 
-    def _prefixes
-      # This allows us to use the unauthorized template in curation_concerns/base
-      @_prefixes ||= super + ['curation_concerns/base']
-    end
-    def remove_embargo(work)
-      work.embargo_visibility! # If the embargo has lapsed, update the current visibility.
-      work.deactivate_embargo!
-      work.save
-    end
+      def _prefixes
+        # This allows us to use the unauthorized template in curation_concerns/base
+        @_prefixes ||= super + ['curation_concerns/base']
+      end
+
+      def remove_embargo(work)
+        work.embargo_visibility! # If the embargo has lapsed, update the current visibility.
+        work.deactivate_embargo!
+        work.save
+      end
   end
 end

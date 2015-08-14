@@ -1,14 +1,14 @@
 require 'rails/generators'
 
 class TestAppGenerator < Rails::Generators::Base
-  source_root "../../spec/test_app_templates"
+  source_root '../../spec/test_app_templates'
 
   def install_engine
     generate 'curation_concerns:install'
   end
 
   def run_migrations
-    rake "db:migrate"
+    rake 'db:migrate'
   end
 
   def generate_generic_work
@@ -22,11 +22,11 @@ class TestAppGenerator < Rails::Generators::Base
   end
 
   def enable_av_transcoding
-    file_path = "app/models/generic_file.rb"
-      inject_into_file file_path, after: /include ::CurationConcerns::GenericFileBehavior/ do
+    file_path = 'app/models/generic_file.rb'
+    inject_into_file file_path, after: /include ::CurationConcerns::GenericFileBehavior/ do
       %q(
   directly_contains_one :ogg, through: :files, type: ::RDF::URI("http://pcdm.org/use#ServiceFile"), class_name: "Hydra::PCDM::File"
-  directly_contains_one :mp3, through: :files, type: ::RDF::URI("http://pcdm.org/use#File"), class_name: "Hydra::PCDM::File"    
+  directly_contains_one :mp3, through: :files, type: ::RDF::URI("http://pcdm.org/use#File"), class_name: "Hydra::PCDM::File"
   directly_contains_one :mp4, through: :files, type: ::RDF::URI("http://pcdm.org/use#ServiceFile"), class_name: "Hydra::PCDM::File"
   directly_contains_one :webm, through: :files, type: ::RDF::URI("http://pcdm.org/use#File"), class_name: "Hydra::PCDM::File"
 
@@ -48,8 +48,5 @@ class TestAppGenerator < Rails::Generators::Base
   end
     )
     end
-
-
   end
-
 end

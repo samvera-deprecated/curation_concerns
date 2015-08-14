@@ -15,7 +15,7 @@ module CurationConcerns::User
 
   # Format the json for select2 which requires just an id and a field called text.
   # If we need an alternate format we should probably look at a json template gem
-  def as_json(opts = nil)
+  def as_json(_opts = nil)
     { id: user_key, text: display_name ? "#{display_name} (#{user_key})" : user_key }
   end
 
@@ -25,18 +25,18 @@ module CurationConcerns::User
   # end
 
   def email_address
-    self.email
+    email
   end
 
   def name
-    self.display_name.titleize || raise
+    display_name.titleize || fail
   rescue
-    self.user_key
+    user_key
   end
 
   # Redefine this for more intuitive keys in Redis
   def to_param
-    # hack because rails doesn't like periods in urls.
+    # HACK: because rails doesn't like periods in urls.
     user_key.gsub(/\./, '-dot-')
   end
 
