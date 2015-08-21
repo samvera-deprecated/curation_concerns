@@ -1,9 +1,9 @@
 require 'spec_helper'
 describe CurationConcerns::ManagesEmbargoesActor do
   let(:model) do
-    Class.new(CurationConcerns::BaseActor) do
-      include described_class
-    end
+    Class.new(CurationConcerns::BaseActor) {
+      include CurationConcerns::ManagesEmbargoesActor
+    }
   end
 
   let(:user) { User.new }

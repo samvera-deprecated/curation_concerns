@@ -6,6 +6,8 @@ coverage
 pkg
 tmp
 *.bundle
+/config
+/vendor
 spec/internal
 jetty
 .rvmrc

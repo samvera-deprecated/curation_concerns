@@ -11,6 +11,7 @@ AllCops:
     - 'script/**/*'
     - 'vendor/**/*'
     - 'spec/internal/**/*'
+    - 'spec/actors/curation_concerns/*'
     - 'curation_concerns-models/app/models/concerns/curation_concerns/generic_file/export.rb'
 
 Lint/UnusedBlockArgument:
