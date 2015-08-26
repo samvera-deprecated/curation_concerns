@@ -13,7 +13,6 @@ module CurationConcerns::CatalogController
     before_action :enforce_show_permissions, only: :show
     # This applies appropriate access controls to all solr queries
     CatalogController.search_params_logic += [:add_access_controls_to_solr_params]
-    self.search_params_logic += [:filter_models]
     self.search_params_logic += [:only_curation_concerns]
 
     configure_blacklight do |config|
