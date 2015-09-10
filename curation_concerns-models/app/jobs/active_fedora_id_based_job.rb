@@ -10,6 +10,6 @@ class ActiveFedoraIdBasedJob < ActiveJob::Base
   alias_method :generic_file, :object
 
   def perform(_)
-    fail 'Define #run in a subclass'
+    fail 'Define #perform in a subclass'
   end
 end

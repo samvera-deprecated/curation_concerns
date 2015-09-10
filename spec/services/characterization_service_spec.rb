@@ -5,9 +5,8 @@ describe CurationConcerns::CharacterizationService do
 
   describe '#run' do
     let(:service_instance) { double }
-    it 'creates an instance of the service and calls .characterize on it' do
-      expect(described_class).to receive(:new).with(generic_file).and_return(service_instance)
-      expect(service_instance).to receive(:characterize)
+    it 'calls .characterize on the generic file' do
+      expect(generic_file).to receive(:characterize)
       described_class.run(generic_file)
     end
   end

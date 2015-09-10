@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-describe FitsDatastream, type: :model, unless: $in_travis do
+# This is redundant testing for what's already in hydra-works.
+# Do single integration test when not in CI
+describe 'Characterization results', type: :model, unless: $in_travis do
   describe 'image' do
     before(:all) do
       @file = GenericFile.create { |gf| gf.apply_depositor_metadata('blah') }
@@ -32,13 +34,6 @@ describe FitsDatastream, type: :model, unless: $in_travis do
       expect(@file.width).to eq ['50']
     end
 
-    let(:datastream) { @file.characterization }
-    let(:xml) { datastream.ng_xml }
-    let(:namespace) { { 'ns' => 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output' } }
-
-    it 'makes the fits XML' do
-      expect(xml.xpath('//ns:imageWidth/text()', namespace).inner_text).to eq '50'
-    end
   end
 
   describe 'video' do
@@ -87,21 +82,16 @@ describe FitsDatastream, type: :model, unless: $in_travis do
     before do
       @myfile = GenericFile.create { |gf| gf.apply_depositor_metadata('blah') }
       Hydra::Works::AddFileToGenericFile.call(@myfile, File.open(fixture_file_path('test4.pdf')), :original_file)
-      # characterize method saves
       CurationConcerns::CharacterizationService.run(@myfile)
     end
 
-    it 'returns expected results after a save' do
+    it 'has expected property values after characterization' do
       expect(@myfile.file_size).to eq ['218882']
       expect(@myfile.original_checksum).to eq ['5a2d761cab7c15b2b3bb3465ce64586d']
 
-      expect(@myfile.characterization_terms[:format_label]).to eq ['Portable Document Format']
-      expect(@myfile.characterization_terms[:mime_type]).to eq 'application/pdf'
-      expect(@myfile.characterization_terms[:file_size]).to eq ['218882']
-      expect(@myfile.characterization_terms[:original_checksum]).to eq ['5a2d761cab7c15b2b3bb3465ce64586d']
-      expect(@myfile.characterization_terms.keys).to include(:last_modified, :filename)
+      expect(@myfile.mime_type).to eq 'application/pdf'
+      expect(@myfile.last_modified).not_to be_nil
 
-      expect(@myfile.title).to include('Microsoft Word - sample.pdf.docx')
       expect(@myfile.filename).to eq 'test4.pdf'
 
       expect(@myfile.format_label).to eq ['Portable Document Format']
@@ -114,7 +104,6 @@ describe FitsDatastream, type: :model, unless: $in_travis do
     before do
       @myfile = GenericFile.create { |gf| gf.apply_depositor_metadata('blah') }
       Hydra::Works::AddFileToGenericFile.call(@myfile, File.open(fixture_file_path('spoken-text.m4a')), :original_file)
-      # characterize method saves
       CurationConcerns::CharacterizationService.run(@myfile)
     end
 

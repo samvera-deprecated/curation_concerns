@@ -69,10 +69,6 @@ describe GenericFile do
         { type: 'person', access: 'edit', name: 'user1' }]
     end
 
-    it 'has a characterization datastream' do
-      expect(subject.characterization).to be_kind_of FitsDatastream
-    end
-
     it "has attached content" do
       expect(subject.association(:original_file)).to be_kind_of ActiveFedora::Associations::DirectlyContainsOneAssociation
     end
@@ -99,7 +95,7 @@ describe GenericFile do
       expect(subject).to respond_to(:resource_type)
       expect(subject).to respond_to(:identifier)
     end
-    it 'delegates methods to characterization metadata' do
+    it 'has methods from characterization properties' do
       expect(subject).to respond_to(:format_label)
       expect(subject).to respond_to(:mime_type)
       expect(subject).to respond_to(:file_size)
