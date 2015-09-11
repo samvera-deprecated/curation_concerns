@@ -7,6 +7,8 @@ gem 'slop', '~> 3.6.0' # This just helps us generate a valid Gemfile.lock when R
 
 gem 'curation_concerns-models', path: './curation_concerns-models'
 
+gem 'hydra-works', git: 'https://github.com/grosscol/hydra-works.git', branch: 'characterization'
+
 group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
