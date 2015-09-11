@@ -3,7 +3,7 @@ module CurationConcerns
     extend ActiveSupport::Concern
     include Hydra::Works::GenericFileBehavior
     include Hydra::Works::GenericFile::Characterization
-    include Hydra::Works::GenericFile::Characterization::Doc
+    include Hydra::Works::GenericFile::Characterization::Document
     include Hydra::Works::GenericFile::Characterization::Image
     include Hydra::Works::GenericFile::Characterization::Video
     include Hydra::Works::GenericFile::Characterization::Audio
