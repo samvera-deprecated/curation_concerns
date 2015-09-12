@@ -11,6 +11,8 @@ describe GenericFile do
     it { is_expected.to include(Hydra::PCDM::Vocab::PCDMTerms.Object, Hydra::Works::Vocab::WorksTerms.GenericFile) }
   end
 
+  # TODO I don't know why this is true.
+  # The GenericFile here does not inherit anything but behaviors from Hydra::Works
   it 'is a Hydra::Works GenericFile' do
     expect(subject).to be_works_generic_file
   end
