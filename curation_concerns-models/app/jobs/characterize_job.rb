@@ -3,7 +3,8 @@ class CharacterizeJob < ActiveFedoraIdBasedJob
 
   def perform(id)
     @id = id
-    CurationConcerns::CharacterizationService.run(generic_file)
+    generic_file.characterize
+    generic_file.filename = generic_file.original_file.original_name
     generic_file.save
     CreateDerivativesJob.perform_later(generic_file.id)
   end
