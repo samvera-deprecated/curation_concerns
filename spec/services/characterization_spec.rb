@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CurationConcerns::CharacterizationService do
+describe 'Characterization' do
   let(:generic_file) { create(:generic_file) }
   #TODO mock out generic file such that it has original_file
   #TODO mock out original_file such that it has original_name

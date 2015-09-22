@@ -128,6 +128,10 @@ module CurationConcerns
         CharacterizeJob.perform_later(@generic_file.id)
       end
 
+      def push_fulltext_job
+        FulltextJob.perform_later(@generic_file.id)
+      end
+
       # Adds a GenericFile to the work using ore:Aggregations.
       # Locks to ensure that only one process is operating on
       # the list at a time.
