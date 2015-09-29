@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 # This is redundant testing for what's already in hydra-works.
-describe 'Characterization results', type: :model, unless: $in_travis do
+describe GenericFile, type: :model, unless: $in_travis do
   describe 'image' do
     before(:all) do
-      @file = GenericFile.create { |gf| gf.apply_depositor_metadata('blah') }
+      @file = subject.create { |gf| gf.apply_depositor_metadata('blah') }
       Hydra::Works::AddFileToGenericFile.call(@file, File.open(fixture_file_path('world.png')), :original_file)
       @file.characterize
     end
@@ -32,12 +32,11 @@ describe 'Characterization results', type: :model, unless: $in_travis do
     it 'has a width' do
       expect(@file.width).to eq ['50']
     end
-
   end
 
   describe 'video' do
     before(:all) do
-      @file = GenericFile.create { |gf| gf.apply_depositor_metadata('blah') }
+      @file = subject.create { |gf| gf.apply_depositor_metadata('blah') }
       Hydra::Works::AddFileToGenericFile.call(@file, File.open(fixture_file_path('sample_mpeg4.mp4')), :original_file)
       @file.characterize
     end
@@ -79,7 +78,7 @@ describe 'Characterization results', type: :model, unless: $in_travis do
 
   describe 'pdf' do
     before do
-      @myfile = GenericFile.create { |gf| gf.apply_depositor_metadata('blah') }
+      @myfile = subject.create { |gf| gf.apply_depositor_metadata('blah') }
       Hydra::Works::AddFileToGenericFile.call(@myfile, File.open(fixture_file_path('test4.pdf')), :original_file)
       @myfile.characterize
     end
@@ -104,10 +103,9 @@ describe 'Characterization results', type: :model, unless: $in_travis do
 
   describe 'm4a' do
     before do
-      @myfile = GenericFile.create { |gf| gf.apply_depositor_metadata('blah') }
+      @myfile = subject.create { |gf| gf.apply_depositor_metadata('blah') }
       Hydra::Works::AddFileToGenericFile.call(@myfile, File.open(fixture_file_path('spoken-text.m4a')), :original_file)
       @myfile.characterize
     end
-
   end
 end

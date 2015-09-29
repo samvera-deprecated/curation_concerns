@@ -15,9 +15,8 @@ describe CurationConcerns::FullTextExtractionService do
     described_class.run(generic_file)
     # TODO: sort out why extracted_text.content is UTF-8 going in,
     # but after the generic_file.save it is ASCII-8BIT
-    #expect(generic_file.extracted_text.content.length).to eq 7235
-    
+    # expect(generic_file.extracted_text.content.length).to eq 7235
+
     expect(generic_file.extracted_text.content.class).to eq String
   end
-
 end
