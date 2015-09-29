@@ -3,7 +3,7 @@ class FulltextJob < ActiveFedoraIdBasedJob
 
   def perform(id)
     @id = id
-    CurationConcerns::CharacterizationService.run(generic_file)
+    CurationConcerns::FullTextExtractionService.run(generic_file)
     generic_file.save
   end
 end

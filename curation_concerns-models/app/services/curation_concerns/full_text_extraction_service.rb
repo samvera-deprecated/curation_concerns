@@ -2,7 +2,6 @@ module CurationConcerns
   class FullTextExtractionService
     def self.run(generic_file)
       extract_store_fulltext(generic_file)
-      generic_file.save
     end
 
     protected

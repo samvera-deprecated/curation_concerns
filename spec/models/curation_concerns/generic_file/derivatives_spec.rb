@@ -42,7 +42,9 @@ describe CurationConcerns::GenericFile do
     end
   end
 
+  # Integration test that will need to be re-written anyway
   describe 'audiovisual transcoding', unless: $in_travis do
+    pending "integration test that needs to be rewritten after derivatives generation changes."
     context 'with a video (.avi) file' do
       let(:mime_type) { 'video/avi' }
       let(:file_name) { 'countdown.avi' }
