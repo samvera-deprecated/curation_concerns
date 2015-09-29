@@ -44,12 +44,12 @@ describe CurationConcerns::GenericFile do
 
   # Integration test that will need to be re-written anyway
   describe 'audiovisual transcoding', unless: $in_travis do
-    pending "integration test that needs to be rewritten after derivatives generation changes."
     context 'with a video (.avi) file' do
       let(:mime_type) { 'video/avi' }
       let(:file_name) { 'countdown.avi' }
 
       it 'transcodes to webm and mp4' do
+      pending "integration test that needs to be rewritten after derivatives generation changes."
         new_webm = "#{Rails.root}/tmp/derivatives/#{generic_file.id}/webm.webm"
         new_mp4 = "#{Rails.root}/tmp/derivatives/#{generic_file.id}/mp4.mp4"
         expect {
@@ -66,6 +66,7 @@ describe CurationConcerns::GenericFile do
       let(:file_name) { 'piano_note.wav' }
 
       it 'transcodes to mp3 and ogg' do
+      pending "integration test that needs to be rewritten after derivatives generation changes."
         new_mp3 = "#{Rails.root}/tmp/derivatives/#{generic_file.id}/mp3.mp3"
         new_ogg = "#{Rails.root}/tmp/derivatives/#{generic_file.id}/ogg.ogg"
         expect {
