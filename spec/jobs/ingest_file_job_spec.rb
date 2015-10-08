@@ -37,4 +37,17 @@ describe IngestFileJob do
       expect(VersionCommitter.where(version_id: versions.last.uri).pluck(:committer_login)).to eq ['bess']
     end
   end
+
+  context 'when after_content_create hook has been assigned a callback' do
+    let(:callback) { proc {} }
+
+    before do
+      CurationConcerns.configure { |c| c.after_create_content = callback }
+    end
+
+    it 'runs the after_content_create hook' do
+      expect(callback).to receive(:call).with(file_set, 'bob').exactly(1).times
+      described_class.perform_now(file_set.id, fixture_file_path('world.png'), 'image/png', 'bob')
+    end
+  end
 end

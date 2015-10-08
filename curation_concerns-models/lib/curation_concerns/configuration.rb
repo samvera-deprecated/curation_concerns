@@ -58,7 +58,8 @@ module CurationConcerns
     attr_accessor :temp_file_base, :enable_local_ingest, :analytic_start_date,
                   :fits_to_desc_mapping, :max_days_between_audits,
                   :resource_types, :resource_types_to_schema,
-                  :permission_levels, :owner_permission_levels, :analytics
+                  :permission_levels, :owner_permission_levels, :analytics,
+                  :after_create_content
 
     attr_writer :enable_noids
     def enable_noids
@@ -112,6 +113,12 @@ module CurationConcerns
     attr_writer :lock_retry_delay
     def lock_retry_delay
       @lock_retry_delay ||= 200 # milliseconds
+    end
+
+    attr_reader :after_create_content
+    def after_create_content=(callback)
+      raise ArgumentError, 'after_create_content= requires an argument that responds to :call, e.g. a Proc' unless callback.respond_to?(:call) || callback.nil?
+      @after_create_content = callback
     end
 
     def register_curation_concern(*curation_concern_types)
