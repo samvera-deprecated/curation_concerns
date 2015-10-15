@@ -26,6 +26,35 @@ describe CurationConcerns::WorkShowPresenter do
     it { is_expected.to be_kind_of ActiveModel::Name }
   end
 
+  describe "#attribute_to_html" do
+    let(:attributes) { { creator_tesim: ['Kathryn', 'Anusha'] } }
+    let(:renderer) { double }
+
+    context "without options" do
+      it "calls the attribute_renderer" do
+        expect(AttributeRenderer).to receive(:new).with(
+          :creator,
+          ['Kathryn', 'Anusha'],
+          {}
+        ).and_return(renderer)
+        expect(renderer).to receive(:render)
+        presenter.attribute_to_html(:creator)
+      end
+    end
+
+    context "with options" do
+      it "calls the attribute_renderer" do
+        expect(AttributeRenderer).to receive(:new).with(
+          :creator,
+          ['Kathryn', 'Anusha'],
+          link_to_facet: "creator_sim"
+        ).and_return(renderer)
+        expect(renderer).to receive(:render)
+        presenter.attribute_to_html(:creator, link_to_facet: 'creator_sim')
+      end
+    end
+  end
+
   describe "#permission_badge" do
     subject { presenter.permission_badge }
 
