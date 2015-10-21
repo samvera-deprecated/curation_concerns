@@ -21,7 +21,7 @@ describe CurationConcerns::FileSetsController do
         end
 
         it 'calls the actor to create metadata and content' do
-          expect(controller.send(:actor)).to receive(:create_metadata).with(nil, parent.id, files: [file], title: ['test title'], visibility: 'restricted')
+          expect(controller.send(:actor)).to receive(:create_metadata).with(nil, parent, files: [file], title: ['test title'], visibility: 'restricted')
           expect(controller.send(:actor)).to receive(:create_content).with(file).and_return(true)
           xhr :post, :create, parent_id: parent,
                               file_set: { files: [file],
@@ -79,7 +79,8 @@ describe CurationConcerns::FileSetsController do
         file_set = FileSet.create! do |gf|
           gf.apply_depositor_metadata(user)
         end
-        parent.file_sets << file_set
+        parent.ordered_members << file_set
+        parent.save
         file_set
       end
 
@@ -98,7 +99,9 @@ describe CurationConcerns::FileSetsController do
           gf.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
           gf.save!
         end
-        parent.file_sets << file_set
+
+        parent.ordered_members << file_set
+        parent.save
         file_set
       end
 
