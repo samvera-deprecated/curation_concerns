@@ -165,11 +165,8 @@ describe CurationConcerns::FileSetsController do
             expect(file_set).to_not be_active_lease
           end
         end
-        # end
 
         context 'updating file content' do
-          # let(:file_set) { create(:file_set) }
-
           it 'is successful' do
             expect(IngestFileJob).to receive(:perform_later)
             expect(CharacterizeJob).to receive(:perform_later).with(file_set.id, kind_of(String))
