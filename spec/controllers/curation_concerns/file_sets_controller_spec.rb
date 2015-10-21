@@ -27,6 +27,7 @@ describe CurationConcerns::FileSetsController do
                               file_set: { files: [file],
                                           title: ['test title'],
                                           visibility: 'restricted' }
+
           expect(response).to be_success
           expect(flash[:error]).to be_nil
         end
@@ -35,21 +36,27 @@ describe CurationConcerns::FileSetsController do
       context "on something that isn't a file" do
         # Note: This is a duplicate of coverage in file_sets_controller_json_spec.rb
         it 'renders error' do
-          xhr :post, :create, parent_id: parent, file_set: { files: ['hello'] },
-                              permission: { group: { 'public' => 'read' } }, terms_of_service: '1'
+          xhr :post, :create, parent_id: parent, file_set: { files: ['hello'] }, permission: { group: { 'public' => 'read' } }, terms_of_service: '1'
           expect(response.status).to eq 400
           msg = JSON.parse(response.body)['message']
           expect(msg).to match(/no file for upload/i)
         end
       end
 
+      subject { create(:file_set) }
+      let(:file_path) { fixture_path + '/small_file.txt' }
+
       context 'when the file has a virus' do
-        it 'displays a flash error' do
-          skip 'pending hydra-works#89'
-          expect(CurationConcerns::FileSetActor).to receive(:virus_check).with(file.path).and_raise(CurationConcerns::VirusFoundError.new('A virus was found'))
-          xhr :post, :create, parent_id: parent, file_set: { files: [file] },
-                              permission: { group: { 'public' => 'read' } }, terms_of_service: '1'
-          expect(flash[:error]).to include('A virus was found')
+        before do
+          allow(subject).to receive(:warn) # suppress virus warnings
+          allow(ClamAV.instance).to receive(:scanfile).and_return('EL CRAPO VIRUS')
+          of = subject.build_original_file
+          of.content = File.open(file_path)
+        end
+
+        it 'populates the errors hash during validation' do
+          expect(subject).to_not be_valid
+          expect(subject.errors.messages[:base].first).to match(/A virus was found in .*: EL CRAPO VIRUS/)
         end
       end
 
@@ -92,6 +99,7 @@ describe CurationConcerns::FileSetsController do
           gf.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
           gf.save!
         end
+
         parent.ordered_members << file_set
         parent.save
         file_set
@@ -105,6 +113,7 @@ describe CurationConcerns::FileSetsController do
         it 'is successful and update attributes' do
           post :update, id: file_set, file_set:
             { title: ['new_title'], tag: [''], permissions_attributes: [{ type: 'person', name: 'archivist1', access: 'edit' }] }
+
           expect(response).to redirect_to main_app.curation_concerns_file_set_path(file_set)
           expect(assigns[:file_set].title).to eq(['new_title'])
         end
@@ -156,16 +165,15 @@ describe CurationConcerns::FileSetsController do
             expect(file_set).to_not be_active_lease
           end
         end
-      end
 
-      context 'updating file content' do
-        it 'is successful' do
-          expect(IngestFileJob).to receive(:perform_later)
-          expect(CharacterizeJob).to receive(:perform_later).with(file_set.id, kind_of(String))
-          post :update, id: file_set, file_set: { files: [file] }
-          expect(response).to redirect_to main_app.curation_concerns_file_set_path(file_set)
-          skip 'pending hydra-works#89'
-          expect(file_set.reload.label).to eq 'image.png'
+        context 'updating file content' do
+          it 'is successful' do
+            expect(IngestFileJob).to receive(:perform_later)
+            expect(CharacterizeJob).to receive(:perform_later).with(file_set.id, kind_of(String))
+            post :update, id: file_set, file_set: { files: [file] }
+
+            expect(response).to redirect_to main_app.curation_concerns_file_set_path(file_set)
+          end
         end
       end
 
