@@ -112,7 +112,7 @@ module CurationConcerns
     end
 
     def mime_type
-      self[Solrizer.solr_name('mime_type', :stored_sortable)]
+      Array(self[Solrizer.solr_name('mime_type', :stored_sortable)]).first
     end
 
     def read_groups
