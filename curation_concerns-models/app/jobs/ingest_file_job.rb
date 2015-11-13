@@ -7,6 +7,10 @@ class IngestFileJob < ActiveJob::Base
     file.mime_type = mime_type
     file.original_name = File.basename(filename)
 
+    # Assign label and title of File Set after original_name has been determined.
+    file_set.label ||= file.original_filename
+    file_set.title = [file_set.label] if file_set.title.blank?
+
     # Tell UploadFileToGenericFile service to skip versioning because versions will be minted by VersionCommitter (called by save_characterize_and_record_committer) when necessary
     Hydra::Works::UploadFileToFileSet.call(file_set, file, versioning: false)
     file_set.save!
