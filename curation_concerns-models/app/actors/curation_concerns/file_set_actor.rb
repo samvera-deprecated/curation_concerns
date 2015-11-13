@@ -50,12 +50,8 @@ module CurationConcerns
     # Simultaneously moving a preservation copy to the repostiory.
     # TODO: create a job to monitor this directory and prune old files that
     # have made it to the repo
-    # @param [ActionDigest::HTTP::UploadedFile, Tempfile] file the file uploaded by the user.
+    # @param [File, ActionDigest::HTTP::UploadedFile, Tempfile] file the file uploaded by the user.
     def create_content(file)
-      file_set.label ||= file.original_filename
-      file_set.title = [file_set.label] if file_set.title.blank?
-      return false unless file_set.save
-
       working_file = copy_file_to_working_directory(file, file_set.id)
       IngestFileJob.perform_later(file_set.id, working_file, file.content_type, user.user_key)
       make_derivative(file_set.id, working_file)
@@ -107,7 +103,7 @@ module CurationConcerns
         CharacterizeJob.perform_later(file_set_id, working_file)
       end
 
-      # @param [ActionDispatch::Http::UploadedFile] file
+      # @param [File, ActionDispatch::Http::UploadedFile] file
       # @param [String] id the identifer
       # @return [String] path of the working file
       def copy_file_to_working_directory(file, id)
