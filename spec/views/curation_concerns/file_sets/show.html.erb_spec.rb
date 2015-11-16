@@ -5,7 +5,7 @@ describe 'curation_concerns/file_sets/show.html.erb', type: :view do
     allow(view).to receive(:parent).and_return(parent)
   end
 
-  let(:parent) { stub_model(GenericWork) }
+  let(:parent) { stub_model(CurationConcerns::GenericWork) }
 
   let(:depositor) do
     stub_model(User,

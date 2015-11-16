@@ -17,7 +17,7 @@ describe 'embargo' do
       click_link 'New Generic Work'
       fill_in 'Title', with: 'Embargo test'
       choose 'Embargo'
-      fill_in 'generic_work_embargo_release_date', with: future_date
+      fill_in 'curation_concerns_generic_work_embargo_release_date', with: future_date
       select 'Private', from: 'Restricted to'
       select 'Open Access', from: 'then open it up to'
       click_button 'Create Generic work'
@@ -29,7 +29,7 @@ describe 'embargo' do
       click_link 'Embargo Management Page'
 
       expect(page).to have_content('This work is under embargo.')
-      expect(page).to have_xpath("//input[@name='generic_work[embargo_release_date]' and @value='#{future_date.to_datetime.iso8601}']") # current embargo date is pre-populated in edit field
+      expect(page).to have_xpath("//input[@name='curation_concerns_generic_work[embargo_release_date]' and @value='#{future_date.to_datetime.iso8601}']") # current embargo date is pre-populated in edit field
 
       fill_in 'until', with: later_future_date.to_s
 

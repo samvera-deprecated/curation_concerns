@@ -14,7 +14,7 @@ describe 'leases' do
       click_link 'New Generic Work'
       fill_in 'Title', with: 'Lease test'
       choose 'Lease'
-      fill_in 'generic_work_lease_expiration_date', with: future_date
+      fill_in 'curation_concerns_generic_work_lease_expiration_date', with: future_date
       select 'Open Access', from: 'Is available for'
       select 'Private', from: 'then restrict it to'
       click_button 'Create Generic work'
@@ -26,7 +26,7 @@ describe 'leases' do
       click_link 'Lease Management Page'
 
       expect(page).to have_content('This work is under lease.')
-      expect(page).to have_xpath("//input[@name='generic_work[lease_expiration_date]' and @value='#{future_date.to_datetime.iso8601}']") # current lease date is pre-populated in edit field
+      expect(page).to have_xpath("//input[@name='curation_concerns_generic_work[lease_expiration_date]' and @value='#{future_date.to_datetime.iso8601}']") # current lease date is pre-populated in edit field
 
       fill_in 'until', with: later_future_date.to_s
 

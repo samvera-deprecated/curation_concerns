@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CurationConcerns::UrlHelper do
   before do
-    GenericWork.destroy_all
+    CurationConcerns::GenericWork.destroy_all
   end
   let(:profile) { ["{\"datastreams\":{}}"] }
   let(:work) { create(:generic_work) }

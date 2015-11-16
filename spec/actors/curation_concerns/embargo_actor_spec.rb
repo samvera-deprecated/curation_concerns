@@ -4,7 +4,7 @@ describe CurationConcerns::EmbargoActor do
   let(:actor) { described_class.new(work) }
 
   let(:work) do
-    GenericWork.new do |work|
+    CurationConcerns::GenericWork.new do |work|
       work.apply_depositor_metadata 'foo'
       work.title = ["test"]
       work.visibility = Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
