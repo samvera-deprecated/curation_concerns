@@ -5,7 +5,7 @@ describe CurationConcerns::WorkShowPresenter do
   let(:attributes) do
     { "title_tesim" => ["foo bar"],
       "human_readable_type_tesim" => ["Generic Work"],
-      "has_model_ssim" => ["GenericWork"] }
+      "has_model_ssim" => ["CurationConcerns::GenericWork"] }
   end
 
   let(:ability) { nil }

@@ -54,8 +54,8 @@ describe CurationConcerns::GenericWorksController do
   describe '#create' do
     it 'creates a work' do
       expect do
-        post :create, generic_work: { title: ['a title'] }
-      end.to change { GenericWork.count }.by(1)
+        post :create, curation_concerns_generic_work: { title: ['a title'] }
+      end.to change { CurationConcerns::GenericWork.count }.by(1)
       expect(response).to redirect_to main_app.curation_concerns_generic_work_path(assigns[:curation_concern])
     end
 
@@ -63,7 +63,7 @@ describe CurationConcerns::GenericWorksController do
       before { allow(controller.current_ability).to receive(:can?).and_return(false) }
 
       it 'shows the unauthorized message' do
-        post :create, generic_work: { title: ['a title'] }
+        post :create, curation_concerns_generic_work: { title: ['a title'] }
         expect(response.code).to eq '401'
         expect(response).to render_template(:unauthorized)
       end
@@ -117,7 +117,7 @@ describe CurationConcerns::GenericWorksController do
     let(:actor) { double(update: true, visibility_changed?: false) }
 
     it 'updates the work' do
-      patch :update, id: a_work, generic_work: {}
+      patch :update, id: a_work, curation_concerns_generic_work: {}
       expect(response).to redirect_to main_app.curation_concerns_generic_work_path(a_work)
     end
 
@@ -164,7 +164,7 @@ describe CurationConcerns::GenericWorksController do
       before { allow_any_instance_of(User).to receive(:groups).and_return(['admin']) }
       let(:a_work) { create(:private_generic_work) }
       it 'someone elses private work should update the work' do
-        patch :update, id: a_work, generic_work: {}
+        patch :update, id: a_work, curation_concerns_generic_work: {}
         expect(response).to redirect_to main_app.curation_concerns_generic_work_path(a_work)
       end
     end
@@ -176,7 +176,7 @@ describe CurationConcerns::GenericWorksController do
     it 'deletes the work' do
       delete :destroy, id: work_to_be_deleted
       expect(response).to redirect_to main_app.catalog_index_path
-      expect(GenericWork).not_to exist(work_to_be_deleted.id)
+      expect(CurationConcerns::GenericWork).not_to exist(work_to_be_deleted.id)
     end
 
     context 'someone elses public work' do
@@ -193,7 +193,7 @@ describe CurationConcerns::GenericWorksController do
       before { allow_any_instance_of(User).to receive(:groups).and_return(['admin']) }
       it 'someone elses private work should delete the work' do
         delete :destroy, id: work_to_be_deleted
-        expect(GenericWork).not_to exist(work_to_be_deleted.id)
+        expect(CurationConcerns::GenericWork).not_to exist(work_to_be_deleted.id)
       end
     end
   end

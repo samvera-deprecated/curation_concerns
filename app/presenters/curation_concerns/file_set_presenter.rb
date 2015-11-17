@@ -12,7 +12,7 @@ module CurationConcerns
     end
 
     # CurationConcern methods
-    delegate :stringify_keys, :human_readable_type, :collection?, :image?, :video?,
+    delegate :stringify_keys, :human_readable_type, :collection?, :file_set?, :image?, :video?,
              :audio?, :pdf?, :office_document?, :representative_id, :to_s, to: :solr_document
 
     # Methods used by blacklight helpers

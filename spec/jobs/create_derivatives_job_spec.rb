@@ -33,7 +33,7 @@ describe CurationConcerns::CreateDerivativesJob do
     end
 
     context 'when the file_set is the thumbnail of the parent' do
-      let(:parent) { GenericWork.new(thumbnail_id: id) }
+      let(:parent) { CurationConcerns::GenericWork.new(thumbnail_id: id) }
 
       it 'updates the index of the parent object' do
         expect(parent).to receive(:update_index)
@@ -42,7 +42,7 @@ describe CurationConcerns::CreateDerivativesJob do
     end
 
     context "when the file_set isn't the parent's thumbnail" do
-      let(:parent) { GenericWork.new }
+      let(:parent) { CurationConcerns::GenericWork.new }
 
       it "doesn't update the parent's index" do
         expect(parent).to_not receive(:update_index)

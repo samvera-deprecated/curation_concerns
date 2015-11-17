@@ -31,6 +31,10 @@ module CurationConcerns
       hydra_model == 'Collection'
     end
 
+    def file_set?
+      hydra_model == 'FileSet'
+    end
+
     # Method to return the ActiveFedora model
     def hydra_model
       self[Solrizer.solr_name('active_fedora_model', Solrizer::Descriptor.new(:string, :stored, :indexed))]

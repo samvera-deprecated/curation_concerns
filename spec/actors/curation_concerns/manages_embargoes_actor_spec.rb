@@ -7,7 +7,7 @@ describe CurationConcerns::ManagesEmbargoesActor do
   end
 
   let(:user) { User.new }
-  let(:curation_concern) { GenericWork.new }
+  let(:curation_concern) { CurationConcerns::GenericWork.new }
   let(:attributes) { {} }
   subject do
     model.new(curation_concern, user, attributes)

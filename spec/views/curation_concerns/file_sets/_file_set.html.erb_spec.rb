@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'curation_concerns/file_sets/_file_set.html.erb' do
   let(:solr_document) { SolrDocument.new(id: '999',
                                          has_model_ssim: ['FileSet'],
+                                         active_fedora_model_ssi: 'FileSet',
                                          thumbnail_path_ss: '/downloads/999?file=thumbnail',
                                          representative_tesim: ["999"],
                                          title_tesim: ["My File"]) }

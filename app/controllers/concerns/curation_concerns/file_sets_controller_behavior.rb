@@ -78,7 +78,7 @@ module CurationConcerns
 
     def destroy
       actor.destroy
-      redirect_to [main_app, :curation_concerns, @file_set.in_works.first], notice: 'The file has been deleted.'
+      redirect_to [main_app, @file_set.in_works.first], notice: 'The file has been deleted.'
     end
 
     # routed to /files/:id (PUT)
@@ -183,7 +183,7 @@ module CurationConcerns
               if request.xhr?
                 render 'jq_upload', formats: 'json', content_type: 'text/html'
               else
-                redirect_to [main_app, :curation_concerns, @file_set.in_works.first]
+                redirect_to [main_app, @file_set.in_works.first]
               end
             end
             format.json do

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'curation_concerns/base/_form_permission.html.erb' do
-  let(:curation_concern) { GenericWork.new }
+  let(:curation_concern) { CurationConcerns::GenericWork.new }
   before do
     f = double('form', object: curation_concern, object_name: nil, input: nil)
     render partial: "curation_concerns/base/form_permission", locals: { f: f }

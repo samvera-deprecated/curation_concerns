@@ -13,7 +13,7 @@ describe 'User' do
         let(:creating_user) { user }
         let(:current_user) { user }
         it do
-          should be_able_to(:create, GenericWork.new)
+          should be_able_to(:create, CurationConcerns::GenericWork.new)
           should be_able_to(:read, generic_work)
           should be_able_to(:update, generic_work)
           should be_able_to(:destroy, generic_work)
@@ -25,7 +25,7 @@ describe 'User' do
         let(:creating_user) { user }
         let(:current_user) { manager_user }
         it do
-          should be_able_to(:create, GenericWork.new)
+          should be_able_to(:create, CurationConcerns::GenericWork.new)
           should be_able_to(:read, generic_work)
           should be_able_to(:update, generic_work)
           should be_able_to(:destroy, generic_work)
@@ -36,7 +36,7 @@ describe 'User' do
         let(:creating_user) { FactoryGirl.create(:user) }
         let(:current_user) { user }
         it do
-          should be_able_to(:create, GenericWork.new)
+          should be_able_to(:create, CurationConcerns::GenericWork.new)
           should_not be_able_to(:read, generic_work)
           should_not be_able_to(:update, generic_work)
           should_not be_able_to(:destroy, generic_work)
@@ -48,7 +48,7 @@ describe 'User' do
         let(:creating_user) { FactoryGirl.create(:user) }
         let(:current_user) { nil }
         it do
-          should_not be_able_to(:create, GenericWork.new)
+          should_not be_able_to(:create, CurationConcerns::GenericWork.new)
           should_not be_able_to(:read, generic_work)
           should_not be_able_to(:update, generic_work)
           should_not be_able_to(:destroy, generic_work)

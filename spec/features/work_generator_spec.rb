@@ -14,7 +14,7 @@ describe 'Creating a new Work' do
 
   before do
     Rails::Generators.invoke('curation_concerns:work', ['Catapult'], destination_root: Rails.root)
-    load "#{EngineCart.destination}/app/models/catapult.rb"
+    load "#{EngineCart.destination}/app/models/curation_concerns/catapult.rb"
     load "#{EngineCart.destination}/app/controllers/curation_concerns/catapults_controller.rb"
     load "#{EngineCart.destination}/app/actors/curation_concerns/catapult_actor.rb"
     load "#{EngineCart.destination}/app/forms/curation_concerns/catapult_form.rb"
@@ -39,14 +39,14 @@ describe 'Creating a new Work' do
     #   click_button "Attach to Generic Work"
     # end
     catapult_title = 'My Test Work'
-    within('form.new_catapult') do
+    within('form.new_curation_concerns_catapult') do
       fill_in('Title', with: catapult_title)
       attach_file('Upload a file', fixture_file_path('files/image.png'))
       choose('visibility_open')
       click_on('Create Catapult')
     end
     click_on('Edit This Catapult')
-    within('form.edit_catapult') do
+    within('form.edit_curation_concerns_catapult') do
       fill_in('Subject', with: 'test')
       click_on('Update Catapult')
     end

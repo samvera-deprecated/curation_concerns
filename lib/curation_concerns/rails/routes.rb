@@ -6,10 +6,10 @@ module ActionDispatch::Routing
       get 'upload_sets/:id/edit' => 'upload_sets#edit', as: :edit_upload_set
       post 'upload_sets/:id' => 'upload_sets#update', as: :upload_set_file_sets
 
+      CurationConcerns.config.registered_curation_concern_types.map(&:tableize).each do |curation_concern_name|
+        namespaced_resources curation_concern_name, except: [:index]
+      end
       namespace :curation_concerns, path: :concern do
-        CurationConcerns.config.registered_curation_concern_types.map(&:tableize).each do |curation_concern_name|
-          namespaced_resources curation_concern_name, except: [:index]
-        end
         resources :permissions, only: [] do
           member do
             get :confirm
@@ -60,16 +60,19 @@ module ActionDispatch::Routing
 
     private
 
+      # routing namepace arguments, for using a path other than the default
+      ROUTE_OPTIONS = { 'curation_concerns' => { path: :concern } }
+
       # Namespaces routes appropriately
       # @example route_namespaced_target("curation_concerns/generic_work") is equivalent to
-      #   namespace "curation_concerns" do
+      #   namespace "curation_concerns", path: :concern do
       #     resources "generic_work", except: [:index]
       #   end
       def namespaced_resources(target, opts = {})
         if target.include?('/')
           the_namespace = target[0..target.index('/') - 1]
           new_target = target[target.index('/') + 1..-1]
-          namespace the_namespace do
+          namespace the_namespace, ROUTE_OPTIONS.fetch(the_namespace, nil) do
             namespaced_resources(new_target, opts)
           end
         else

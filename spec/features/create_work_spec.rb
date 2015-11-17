@@ -22,7 +22,7 @@ describe 'Creating a new Work' do
   it 'creates the work and allow you to attach a file' do
     visit '/concern/generic_works/new'
     work_title = 'My Test Work'
-    within('form.new_generic_work') do
+    within('form.new_curation_concerns_generic_work') do
       fill_in('Title', with: work_title)
       attach_file('Upload a file', fixture_file_path('files/image.png'))
       choose('visibility_open')

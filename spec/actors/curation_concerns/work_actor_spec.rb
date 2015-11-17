@@ -19,7 +19,7 @@ describe CurationConcerns::GenericWorkActor do
   end
 
   describe '#create' do
-    let(:curation_concern) { GenericWork.new }
+    let(:curation_concern) { CurationConcerns::GenericWork.new }
     let(:xmas) { DateTime.parse('2014-12-25 11:30') }
 
     context 'failure' do

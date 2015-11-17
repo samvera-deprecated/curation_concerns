@@ -146,7 +146,7 @@ module CurationConcerns
     private
 
       def normalize_concern_name(c)
-        c.to_s.camelize
+        "CurationConcerns::#{c.to_s.camelize}"
       end
   end
 

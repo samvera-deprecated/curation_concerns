@@ -3,10 +3,15 @@ require 'spec_helper'
 # This tests the GenericWork model that is inserted into the host app by curation_concerns:models:install
 # It includes the CurationConcerns::GenericWorkBehavior module and nothing else
 # So this test covers both the GenericWorkBehavior module and the generated GenericWork model
-describe GenericWork do
+describe CurationConcerns::GenericWork do
   it 'has a title' do
     subject.title = ['foo']
     expect(subject.title).to eq ['foo']
+  end
+
+  describe '.model_name' do
+    subject { described_class.model_name.singular_route_key }
+    it { is_expected.to eq 'curation_concerns_generic_work' }
   end
 
   context 'with attached files' do
