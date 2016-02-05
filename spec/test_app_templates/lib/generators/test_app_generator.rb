@@ -20,4 +20,8 @@ class TestAppGenerator < Rails::Generators::Base
     remove_file 'spec/controllers/curation_concerns/generic_works_controller_spec.rb'
     remove_file 'spec/actors/curation_concerns/generic_work_actor_spec.rb'
   end
+
+  def browse_everything_config
+    generate "browse_everything:config"
+  end
 end

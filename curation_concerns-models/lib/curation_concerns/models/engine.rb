@@ -1,10 +1,20 @@
 module CurationConcerns
   module Models
+    def self.config(&block)
+      @@config ||= Engine::Configuration.new
+
+      yield @@config if block
+
+      @@config
+    end
+
     class Engine < ::Rails::Engine
       config.autoload_paths += %W(
         #{config.root}/app/actors/concerns
         #{config.root}/lib/curation_concerns
       )
+
+      config.browse_everything = nil
 
       initializer 'requires' do
         require 'active_fedora/noid'

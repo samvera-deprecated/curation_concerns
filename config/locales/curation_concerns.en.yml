@@ -20,6 +20,11 @@ en:
           placeholder: "Type keywords in here"
     bread_crumb:
       works_list: "the works browser"
+    browse_everything:
+      sr_tab_label: "Access Files from"
+      tab_label: "Cloud Providers"
+      browse_files_button: "Browse cloud files"
+      files_selected: "files selected"
     messages:
       success:
         single: "has been saved."
