@@ -14,6 +14,7 @@ module CurationConcerns
     include CurationConcerns::FileSet::Indexing
     include CurationConcerns::FileSet::BelongsToWorks
     include CurationConcerns::FileSet::Querying
+    include CurationConcerns::FileSet::ProxyDeposit
     include CurationConcerns::HumanReadableType
     include CurationConcerns::RequiredMetadata
     include CurationConcerns::Naming
