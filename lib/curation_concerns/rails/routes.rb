@@ -1,24 +1,10 @@
 module ActionDispatch::Routing
   class Mapper
-    # @yield If a block is passed it is yielded for each curation_concern
-    # @example
-    #   curation_concerns_basic_routes do
-    #     concerns :exportable
-    #   end
-    def curation_concerns_basic_routes(&block)
+    def curation_concerns_basic_routes
       resources :downloads, only: :show
       resources :upload_sets, only: [:edit, :update]
 
       namespace :curation_concerns, path: :concern do
-        concerns_to_route.each do |curation_concern_name|
-          namespaced_resources curation_concern_name, except: [:index], &block
-          namespaced_resources curation_concern_name, only: [] do
-            member do
-              get :file_manager
-            end
-          end
-        end
-
         resources :permissions, only: [] do
           member do
             get :confirm
@@ -30,6 +16,35 @@ module ActionDispatch::Routing
           member do
             get :versions
             put :rollback
+          end
+        end
+      end
+    end
+
+    # @yield If a block is passed it is yielded for each curation_concern
+    # @example
+    #   curation_concerns_resource_routes do
+    #     concerns :exportable
+    #   end
+    def curation_concerns_resource_routes(&block)
+      concerns_to_route.each do |curation_concern_name|
+        curation_concerns_named_resouce_route curation_concern_name, &block
+      end
+    end
+
+    # @param [String] curation_concern_name
+    # @param [Hash] options extra options to pass to the routes
+    # @yield If a block is passed it is yielded for each curation_concern
+    # @example
+    #   curation_concerns_named_resouce_route constraints: { id: /[A-Z][A-Z][0-9]+/ } do
+    #     concerns :exportable
+    #   end
+    def curation_concerns_named_resouce_route(curation_concern_name, options = {}, &block)
+      namespace :curation_concerns, path: :concern do
+        namespaced_resources curation_concern_name, options.merge(except: [:index]), &block
+        namespaced_resources curation_concern_name, only: [] do
+          member do
+            get :file_manager
           end
         end
       end
