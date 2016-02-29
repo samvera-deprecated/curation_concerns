@@ -63,6 +63,7 @@ module CurationConcerns
         "  root 'welcome#index'\n"\
         "  curation_concerns_collections\n"\
         "  curation_concerns_basic_routes\n"\
+        "  curation_concerns_resource_routes\n"\
         "  curation_concerns_embargo_management\n"\
       end
     end
