@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe CurationConcerns::RepositoryAuditService do
   let(:user) { FactoryGirl.create(:user) }
+  before do
+    FileSet.destroy_all
+  end
+
   let!(:file) do
     fs = FileSet.create! do |f|
       f.apply_depositor_metadata(user)

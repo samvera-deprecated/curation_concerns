@@ -59,6 +59,10 @@ describe CurationConcerns::CollectionBehavior do
         ActiveFedora::SolrService.add(file3.to_solr, softCommit: true)
       end
 
+      after do
+        ActiveFedora::Cleaner.clean!
+      end
+
       it "is the correct aggregate size" do
         is_expected.to eq 200
       end
