@@ -2,7 +2,12 @@ require 'spec_helper'
 
 describe CatalogController do
   before do
-    ActiveFedora::Base.delete_all
+    GenericWork.all.each do |work|
+      work.destroy(eradicate: true)
+    end
+    Collection.all.each do |collection|
+      collection.destroy(eradicate: true)
+    end
   end
 
   describe 'when logged in' do

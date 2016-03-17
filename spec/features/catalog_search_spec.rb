@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 feature 'Catalog index page' do
+  before do
+    GenericWork.destroy_all
+    Collection.destroy_all
+  end
+
   let!(:work) { create(:public_generic_work, title: ['My Work']) }
   let!(:coll) { create(:collection, :public, title: ['My Collection']) }
 

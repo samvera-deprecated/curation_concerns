@@ -13,6 +13,7 @@ describe 'Creating a new Work' do
   }
 
   before do
+    Collection.destroy_all
     Rails::Generators.invoke('curation_concerns:work', ['Catapult'], destination_root: Rails.root)
     load "#{EngineCart.destination}/app/models/catapult.rb"
     load "#{EngineCart.destination}/app/controllers/curation_concerns/catapults_controller.rb"

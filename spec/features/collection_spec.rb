@@ -12,17 +12,6 @@ describe 'collection' do
   let(:gw1) { create(:generic_work, user: user, title: ['First test work']) }
   let(:gw2) { create(:generic_work, user: user, title: ['Second test work']) }
 
-  before(:all) do
-    @old_resque_inline_value = Resque.inline
-    Resque.inline = true
-  end
-
-  after(:all) do
-    Resque.inline = @old_resque_inline_value
-    GenericWork.destroy_all
-    Collection.destroy_all
-  end
-
   describe 'create collection' do
     before do
       sign_in user
@@ -113,9 +102,14 @@ describe 'collection' do
   end
 
   describe 'edit collection' do
+    before { Collection.destroy_all }
+
     let!(:collection) do
-      create(:collection, user: user, description: ['collection description'], members: [gw1, gw2])
+      create(:collection, user: user,
+                          description: ['collection description'],
+                          members: [gw1, gw2])
     end
+
     before do
       sign_in user
       visit search_path_for_my_collections

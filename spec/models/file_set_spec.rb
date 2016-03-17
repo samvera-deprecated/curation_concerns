@@ -202,6 +202,7 @@ describe FileSet do
 
   describe 'noid integration' do
     before do
+      ActiveFedora::Base.find('wd3763094').destroy(eradicate: true) if ActiveFedora::Base.exists?('wd3763094')
       allow_any_instance_of(ActiveFedora::Noid::Service).to receive(:mint).and_return(noid)
     end
 
@@ -362,6 +363,9 @@ describe FileSet do
   end
 
   describe '#where_digest_is' do
+    before do
+      described_class.destroy_all
+    end
     let(:file) { create(:file_set) }
     let(:file_path) { fixture_path + '/small_file.txt' }
     let(:digest_string) { '88fb4e88c15682c18e8b19b8a7b6eaf8770d33cf' }
