@@ -9,8 +9,9 @@ module CurationConcerns::CurationConcernController
     with_themed_layout '1_column'
     helper CurationConcerns::AbilityHelper
 
-    class_attribute :_curation_concern_type, :show_presenter
+    class_attribute :_curation_concern_type, :show_presenter, :actor_class
     self.show_presenter = CurationConcerns::WorkShowPresenter
+    self.actor_class = CurationConcerns::CurationConcern
     attr_accessor :curation_concern
     helper_method :curation_concern
   end
@@ -115,7 +116,7 @@ module CurationConcerns::CurationConcernController
     end
 
     def actor
-      @actor ||= CurationConcerns::CurationConcern.actor(curation_concern, current_user, attributes_for_actor)
+      @actor ||= actor_class.actor(curation_concern, current_user, attributes_for_actor)
     end
 
     def presenter
