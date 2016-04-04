@@ -18,11 +18,11 @@
     <div class="form-group">
       <label class="radio">
         <%= f.radio_button :visibility, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC %>
-        <span class="label label-success">Open Access</span> Visible to the world.
+        <%= t('curation_concerns.visibility.open.label_html') %>
       </label>
       <label class="radio">
         <%= f.radio_button :visibility, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED %>
-        <span class="label label-info"><%=t('curation_concerns.institution.name') %></span> Visible to all <%=t('curation_concerns.institution.name') %> users.
+        <%= t('curation_concerns.visibility.authenticated.label_html', institution: t('curation_concerns.institution.name')) %>
       </label>
       <label class="radio">
         <%= f.radio_button :visibility, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_EMBARGO %>
@@ -34,9 +34,8 @@
       </label>
       <label class="radio">
         <%= f.radio_button :visibility, Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE %>
-        <span class="label label-danger">Private</span> Only visible to you and your delegates.
+        <%= t('curation_concerns.visibility.private.label_html') %>
       </label>
     </div>
-
   </fieldset>
 <% end %>
