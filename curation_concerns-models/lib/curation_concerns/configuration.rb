@@ -75,6 +75,11 @@ module CurationConcerns
       @max_days_between_audits ||= 7
     end
 
+    attr_writer :browse_everything
+    def browse_everything
+      @browse_everything ||= true
+    end
+
     attr_writer :enable_noids
     def enable_noids
       return @enable_noids unless @enable_noids.nil?

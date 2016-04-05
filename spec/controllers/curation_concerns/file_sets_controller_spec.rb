@@ -13,6 +13,61 @@ describe CurationConcerns::FileSetsController do
         FileSet.destroy_all
       end
 
+      context "with browse-everything" do
+        before do
+          @json_from_browse_everything = { "0" => { "url" => "https://dl.dropbox.com/fake/blah-blah.filepicker-demo.txt.txt", "expires" => "2014-03-31T20:37:36.214Z", "file_name" => "filepicker-demo.txt.txt" }, "1" => { "url" => "https://dl.dropbox.com/fake/blah-blah.Getting%20Started.pdf", "expires" => "2014-03-31T20:37:36.731Z", "file_name" => "Getting+Started.pdf" } }
+        end
+        context "when no work_id is passed" do
+          it "ingests files from provide URLs" do
+            skip "Creating a FileSet without a parent work is not yet supported"
+            expect(ImportUrlJob).to receive(:perform_later).twice
+            expect { post :create, selected_files: @json_from_browse_everything,
+                                   parent_id: parent,
+                                   file_set: {}
+            }.to change(FileSet, :count).by(2)
+            created_files = FileSet.all
+            ["https://dl.dropbox.com/fake/blah-blah.Getting%20Started.pdf", "https://dl.dropbox.com/fake/blah-blah.filepicker-demo.txt.txt"].each do |url|
+              expect(created_files.map(&:import_url)).to include(url)
+            end
+            ["filepicker-demo.txt.txt", "Getting+Started.pdf"].each do |filename|
+              expect(created_files.map(&:label)).to include(filename)
+            end
+          end
+        end
+
+        context "when a work id is passed" do
+          # let(:work) do
+          #  GenericWork.create!(title: ['test title']) do |w|
+          #    w.apply_depositor_metadata(user)
+          #  end
+          # end
+          it "records the work" do
+            expect(ImportUrlJob).to receive(:perform_later).twice
+            expect {
+              post :create, selected_files: @json_from_browse_everything,
+                            parent_id: parent,
+                            file_set: {}
+            }.to change(FileSet, :count).by(2)
+            created_files = FileSet.all
+            created_files.each { |f| expect(f.generic_works).to include parent }
+          end
+        end
+
+        context "when a work id is not passed" do
+          it "creates the work" do
+            skip "Creating a FileSet without a parent work is not yet supported"
+            expect(ImportUrlJob).to receive(:new).twice
+            expect {
+              post :create, selected_files: @json_from_browse_everything,
+                            file_set: {},
+                            parent_id: parent
+            }.to change(FileSet, :count).by(2)
+            created_files = FileSet.all
+            expect(created_files[0].generic_works.first).not_to eq created_files[1].generic_works.first
+          end
+        end
+      end
+
       context 'on the happy path' do
         let(:date_today) { DateTime.now }
 

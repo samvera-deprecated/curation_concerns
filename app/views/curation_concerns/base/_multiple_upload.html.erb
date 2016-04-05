@@ -1,3 +1,27 @@
-<%= render 'curation_concerns/file_sets/upload/alerts', presenter: @presenter %>
-<%= render 'curation_concerns/file_sets/upload/form', presenter: @presenter %>
-<%= render 'curation_concerns/file_sets/upload/script_templates', presenter: @presenter %>
+<ul class="nav nav-tabs" role="tablist" title="Data Source Selectors" id="upload_tabs">
+  <li class="active" id="computer_tab" title="<%= t('curation_concern.upload.my_computer.sr_tab_label')+' '+ t('curation_concern.upload.my_computer.tab_label') %>"><a role="tab" href="#local" data-toggle="tab"><i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i> <%= t('curation_concern.upload.my_computer.tab_label')%></a></li>
+  <% if CurationConcerns.config.browse_everything %>
+      <li id="browse_everything_tab" title="<%= t('curation_concern.upload.browse_everything.sr_tab_label')+' '+ t('curation_concern.upload.browse_everything.tab_label') %>" aria-activedescendant="browse_everything_link"><a role="tab" href="#browse_everything" data-toggle="tab" id="browse_everything_link" ><i class="glyphicon glyphicon-cloud-download" aria-hidden="true"></i> <%= t('curation_concern.upload.browse_everything.tab_label')%></a></li>
+  <% end %>
+</ul>
+
+
+<div class="tab-content">
+  <div class="tab-pane active" id="local" aria-labelledby="computer_tab" role="tabpanel">
+    <span class="sr-only"><%= t("curation_concern.upload.my_computer.sr_instructions") %></span>
+    <%= render 'curation_concerns/file_sets/upload/alerts', presenter: @presenter %>
+    <%= render 'curation_concerns/file_sets/upload/form', presenter: @presenter %>
+    <%= render 'curation_concerns/file_sets/upload/script_templates', presenter: @presenter %>
+  </div>
+
+  <% if CurationConcerns.config.browse_everything %>
+      <div class="tab-pane" id="browse_everything"  aria-labelledby="browse_everything_tab" role="tabpanel">
+        <%= render 'curation_concerns/file_sets/upload/browse_everything', presenter: @presenter %>
+      </div>
+  <% end %>
+
+</div>
+
+
+
+
