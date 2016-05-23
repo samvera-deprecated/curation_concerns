@@ -8,7 +8,7 @@
 //= require curation_concerns/file_manager/member
 //= require curation_concerns/batch_select
 //= require curation_concerns/collections
-
+//= require curation_concerns/rights
 
 // Initialize plugins and Bootstrap dropdowns on jQuery's ready event as well as
 // Turbolinks's page change event.
