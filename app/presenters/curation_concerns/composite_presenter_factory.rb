@@ -12,6 +12,7 @@ module CurationConcerns
 
     def new(*args)
       obj = args.first
+      raise ArgumentError, "You must provide some ids" unless file_set_ids.present?
       if file_set_ids.include?(obj.id)
         file_set_presenter_class.new(*args)
       else
