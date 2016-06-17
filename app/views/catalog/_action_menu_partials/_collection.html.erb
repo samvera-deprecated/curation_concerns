@@ -3,7 +3,7 @@
   <ul class="dropdown-menu">
     <% if can? :edit, document %>
       <li>
-        <%= link_to [:edit, document], class: 'itemicon itemedit' do %><i class="glyphicon glyphicon-pencil"></i> Edit <%= document.human_readable_type %>
+        <%= link_to edit_collection_path(document), class: 'itemicon itemedit' do %><i class="glyphicon glyphicon-pencil"></i> Edit <%= document.human_readable_type %>
         <% end %>
       </li>
       <li>
