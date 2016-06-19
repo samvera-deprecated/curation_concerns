@@ -93,8 +93,17 @@ module CurationConcerns::CurationConcernController
     end
   end
 
+  def remove_from_collection
+    curation_concern.in_collection_ids.each do |id|
+      destination_collection = ::Collection.find(id)
+      destination_collection.members.delete(curation_concern)
+      destination_collection.update_index
+    end
+  end
+
   def destroy
     title = curation_concern.to_s
+    remove_from_collection
     curation_concern.destroy
     CurationConcerns.config.callback.run(:after_destroy, curation_concern.id, current_user)
     after_destroy_response(title)
