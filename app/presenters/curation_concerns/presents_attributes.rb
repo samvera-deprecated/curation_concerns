@@ -3,6 +3,7 @@ module CurationConcerns
     ##
     # Present the attribute as an HTML table row.
     #
+    # @param [Symbol,String] field name of the attribute
     # @param [Hash] options
     # @option options [Symbol] :render_as use an alternate renderer
     #   (e.g., :linked or :linked_attribute to use LinkedAttributeRenderer)
@@ -16,7 +17,6 @@ module CurationConcerns
         Rails.logger.warn("#{self.class} attempted to render #{field}, but no method exists with that name.")
         return
       end
-
       renderer_for(field, options).new(field, send(field), options).render
     end
 
