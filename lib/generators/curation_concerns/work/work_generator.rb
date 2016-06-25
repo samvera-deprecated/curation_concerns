@@ -7,7 +7,6 @@ class Rails::Generators::NamedBase
     def destroy(what, *args)
       log :destroy, what
       argument = args.map(&:to_s).flatten.join(' ')
-
       in_root do
         run_ruby_script("bin/rails destroy #{what} #{argument}", verbose: true)
       end
@@ -28,6 +27,10 @@ class CurationConcerns::WorkGenerator < Rails::Generators::NamedBase
 
   def create_model
     template('model.rb.erb', "app/models/#{file_name}.rb")
+  end
+
+  def create_presenter
+    template('presenter.rb.erb', "app/presenters/#{plural_file_name}_presenter.rb")
   end
 
   def create_controller_spec
