@@ -11,6 +11,9 @@ group :development, :test do
   gem 'pry-byebug' unless ENV['CI']
 end
 
+gem 'active-fedora', github: 'projecthydra/active_fedora', branch: 'master'
+gem 'hydra-pcdm', github: 'projecthydra/hydra-pcdm', branch: 'master'
+
 # BEGIN ENGINE_CART BLOCK
 # engine_cart: 0.8.0
 # engine_cart stanza: 0.8.0

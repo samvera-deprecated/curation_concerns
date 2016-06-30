@@ -4,3 +4,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
 end
+
+gem 'active-fedora', github: 'projecthydra/active_fedora', branch: 'master'
+gem 'hydra-pcdm', github: 'projecthydra/hydra-pcdm', branch: 'master'

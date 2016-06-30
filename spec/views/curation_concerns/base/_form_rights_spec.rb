@@ -24,18 +24,18 @@ describe 'curation_concerns/base/_form_rights.html.erb' do
     end
 
     it 'will only include active values if the current value is active' do
-      expect(rendered).not_to have_xpath('//div/ul/li[1]/select/option[@value="demo_id_04"]')
-      expect(rendered).not_to have_xpath('//div/ul/li[1]/select/option[text()="Fourth is an Inactive Term"]')
+      expect(rendered).not_to have_xpath('//div/ul/li/select/option[@value="demo_id_03"]')
+      expect(rendered).not_to have_xpath('//div/ul/li/select/option[text()="Third is an Inactive Term"]')
     end
 
     it 'will always include the current value as an option' do
-      expect(rendered).to have_xpath('//div/ul/li[2]/select/option[@value="demo_id_04" and @selected="selected"]')
-      expect(rendered).to have_xpath('//div/ul/li[2]/select/option[text()="Fourth is an Inactive Term"]')
+      expect(rendered).to have_xpath('//div/ul/li/select/option[@value="demo_id_04" and @selected="selected"]')
+      expect(rendered).to have_xpath('//div/ul/li/select/option[text()="Fourth is an Inactive Term"]')
     end
 
     it 'only offers active values to add to a work' do
-      expect(rendered).not_to have_xpath('//div/ul/li[3]/select/option[@value="demo_id_04"]')
-      expect(rendered).not_to have_xpath('//div/ul/li[3]/select/option[text()="Fourth is an Inactive Term"]')
+      expect(rendered).not_to have_xpath('//div/ul/li/select/option[@value="demo_id_03"]')
+      expect(rendered).not_to have_xpath('//div/ul/li/select/option[text()="Third is an Inactive Term"]')
     end
   end
 end
