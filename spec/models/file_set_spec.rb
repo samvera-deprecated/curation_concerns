@@ -266,19 +266,19 @@ describe FileSet do
     end
 
     it 'has read groups accessor' do
-      expect(subject.read_groups).to eq ['group-6', 'group-7']
+      expect(subject.read_groups).to match_array ['group-6', 'group-7']
     end
 
     it 'has read groups writer' do
       subject.read_groups = ['group-2', 'group-3']
-      expect(subject.read_groups).to eq ['group-2', 'group-3']
+      expect(subject.read_groups).to match_array ['group-2', 'group-3']
     end
 
     it 'has read groups string writer' do
       subject.read_groups_string = 'umg/up.dlt.staff, group-3'
-      expect(subject.read_groups).to eq ['umg/up.dlt.staff', 'group-3']
+      expect(subject.read_groups).to match_array ['umg/up.dlt.staff', 'group-3']
       expect(subject.edit_groups).to eq ['group-8']
-      expect(subject.read_users).to eq %w(person1 person2)
+      expect(subject.read_users).to match_array %w(person1 person2)
       expect(subject.edit_users).to eq ['jcoyne']
     end
 

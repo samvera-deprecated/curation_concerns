@@ -58,7 +58,7 @@ describe CurationConcerns::FileSetIndexer do
       expect(subject[Solrizer.solr_name('date_modified')]).to be_nil
       expect(subject[Solrizer.solr_name('date_uploaded', :stored_sortable, type: :date)]).to eq '2011-01-01T00:00:00Z'
       expect(subject[Solrizer.solr_name('date_modified', :stored_sortable, type: :date)]).to eq '2012-01-01T00:00:00Z'
-      expect(subject[Solrizer.solr_name('rights')]).to eq ['Wide open, buddy.']
+      expect(subject[Solrizer.solr_name('rights')]).to match_array ['Wide open, buddy.']
       expect(subject[Solrizer.solr_name('related_url')]).to eq ['http://example.org/TheWork/']
       expect(subject[Solrizer.solr_name('contributor')]).to eq ['Mohammad']
       expect(subject[Solrizer.solr_name('creator')]).to eq ['Allah']
@@ -74,7 +74,7 @@ describe CurationConcerns::FileSetIndexer do
       expect(subject[Solrizer.solr_name('resource_type')]).to eq ['Book']
       expect(subject[Solrizer.solr_name('file_format')]).to eq 'jpeg (JPEG Image)'
       expect(subject[Solrizer.solr_name('identifier')]).to eq ['urn:isbn:1234567890']
-      expect(subject[Solrizer.solr_name('based_near')]).to eq ['Medina, Saudi Arabia']
+      expect(subject[Solrizer.solr_name('based_near')]).to match_array ['Medina, Saudi Arabia']
       expect(subject.fetch('mime_type_ssi')).to eq 'image/jpeg'
       expect(subject.fetch('thumbnail_path_ss')).to eq '/downloads/foo123?file=thumbnail'
       expect(subject['all_text_timv']).to eq('abcxyz')
