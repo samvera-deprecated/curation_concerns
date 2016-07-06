@@ -5,5 +5,5 @@ group :development do
   gem 'binding_of_caller'
 end
 
-gem 'active-fedora', github: 'projecthydra/active_fedora', branch: 'update_at'
+gem 'active-fedora', github: 'projecthydra/active_fedora', branch: 'test_speed_updates'
 gem 'active-triples', github: 'ActiveTriples/ActiveTriples', branch: 'length'

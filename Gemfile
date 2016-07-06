@@ -11,7 +11,7 @@ group :development, :test do
   gem 'pry-byebug' unless ENV['CI']
 end
 
-gem 'active-fedora', github: 'projecthydra/active_fedora', branch: 'update_at'
+gem 'active-fedora', github: 'projecthydra/active_fedora', branch: 'test_speed_updates'
 gem 'active-triples', github: 'ActiveTriples/ActiveTriples', branch: 'length'
 
 # BEGIN ENGINE_CART BLOCK
