@@ -7,7 +7,7 @@ module CurationConcerns
       delegate :human_readable_type, :open_access?, :authenticated_only_access?,
                :open_access_with_embargo_release_date?, :private_access?,
                :embargo_release_date, :lease_expiration_date, :member_ids,
-               :visibility, :in_works_ids, to: :model
+               :visibility, :in_works_ids, :member_of_collection_ids, to: :model
 
       self.terms = [:title, :creator, :contributor, :description,
                     :keyword, :rights, :publisher, :date_created, :subject, :language,
@@ -15,7 +15,8 @@ module CurationConcerns
                     :representative_id, :thumbnail_id, :files,
                     :visibility_during_embargo, :embargo_release_date, :visibility_after_embargo,
                     :visibility_during_lease, :lease_expiration_date, :visibility_after_lease,
-                    :visibility, :ordered_member_ids, :source, :in_works_ids]
+                    :visibility, :ordered_member_ids, :source, :in_works_ids,
+                    :member_of_collection_ids]
 
       self.required_fields = [:title]
 
@@ -46,6 +47,8 @@ module CurationConcerns
           when 'ordered_member_ids'
             true
           when 'in_works_ids'
+            true
+          when 'member_of_collection_ids'
             true
           else
             super

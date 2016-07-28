@@ -162,6 +162,10 @@ module CurationConcerns
                       end
     end
 
+    def member_of_collection_ids
+      fetch(Solrizer.solr_name('member_of_collection_ids', :symbol), [])
+    end
+
     private
 
       def date_field(field_name)
