@@ -201,8 +201,10 @@ describe CollectionsController do
           a.apply_depositor_metadata(user)
           a.save
         end
-        collection.members = [asset1, asset2, asset3]
-        collection.save
+        [asset1, asset2, asset3].each do |asset|
+          asset.member_of_collections = [collection]
+          asset.save
+        end
       end
 
       it 'returns the collection and its members' do
