@@ -9,5 +9,17 @@
     <%= presenter.attribute_to_html(:embargo_release_date, render_as: :date) %>
     <%= presenter.attribute_to_html(:lease_expiration_date, render_as: :date) %>
     <%= presenter.attribute_to_html(:rights, render_as: :rights) %>
+    <% if defined?(presenter.member_of_collection_ids) && presenter.member_of_collection_ids.size > 0 %>
+      <tr>
+        <td>Member of Collections</td>
+        <td>
+          <ul class="member_of_collections">
+            <% presenter.member_of_collection_presenters.each do |p| %>
+              <li><%= link_to p.title.first, main_app.collection_path(p.id) %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>

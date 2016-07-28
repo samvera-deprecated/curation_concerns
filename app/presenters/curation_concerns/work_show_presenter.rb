@@ -39,7 +39,7 @@ module CurationConcerns
     delegate :title, :date_created, :date_modified, :date_uploaded, :description,
              :creator, :contributor, :subject, :publisher, :language, :embargo_release_date,
              :lease_expiration_date, :rights, :source, :thumbnail_id, :representative_id,
-             to: :solr_document
+             :member_of_collection_ids, to: :solr_document
 
     # @return [Array<FileSetPresenter>] presenters for the orderd_members that are FileSets
     def file_set_presenters
@@ -81,6 +81,12 @@ module CurationConcerns
     # @return [Array<CollectionPresenter>] presenters for the collections that this work is a member of
     def collection_presenters
       PresenterFactory.build_presenters(in_collection_ids,
+                                        collection_presenter_class,
+                                        *presenter_factory_arguments)
+    end
+
+    def member_of_collection_presenters
+      PresenterFactory.build_presenters(member_of_collection_ids,
                                         collection_presenter_class,
                                         *presenter_factory_arguments)
     end
