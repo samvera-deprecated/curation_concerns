@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'redlock', '~> 0.1.2'
   spec.add_dependency 'solrizer', '~> 3.4'
   spec.add_dependency 'rdf', '>= 1.99'
-  spec.add_dependency 'rdf-vocab', '~> 0'
+  spec.add_dependency 'rdf-vocab'
   spec.add_dependency 'awesome_nested_set', '~> 3.0'
   spec.add_dependency 'browse-everything', '~> 0.10'
   spec.add_dependency 'clipboard-rails', '~> 1.5'

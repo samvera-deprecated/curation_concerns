@@ -44,7 +44,7 @@ module CurationConcerns
       end
 
       def asset
-        @asset ||= ActiveFedora::Base.load_instance_from_solr(params[:id])
+        @asset ||= ActiveFedora::Base.find(params[:id])
       end
   end
 end

@@ -23,7 +23,7 @@ module CurationConcerns
     #   link_to '...', SolrDocument(:id => 'bXXXXXX5').new => <a href="/dams_object/bXXXXXX5">...</a>
     def to_model
       @model ||= begin
-        m = ActiveFedora::Base.load_instance_from_solr(id, self)
+        m = ActiveFedora::Base.find(id)
         m.class == ActiveFedora::Base ? self : m
       end
     end
@@ -135,6 +135,10 @@ module CurationConcerns
                       else
                         Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
                       end
+    end
+
+    def member_of_collection_ids
+      fetch(Solrizer.solr_name('member_of_collection_ids', :symbol), [])
     end
 
     private
