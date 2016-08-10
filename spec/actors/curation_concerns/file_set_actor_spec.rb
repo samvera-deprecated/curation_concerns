@@ -108,7 +108,7 @@ describe CurationConcerns::Actors::FileSetActor do
 
       subject { file_set.title }
 
-      it { is_expected.to eql [short_name] }
+      it { is_expected.to eq [short_name] }
     end
 
     context 'when a label is already specified' do
@@ -159,11 +159,11 @@ describe CurationConcerns::Actors::FileSetActor do
       end
 
       it "removes representative, thumbnail, and the proxy association" do
-        gw = GenericWork.load_instance_from_solr(work.id)
+        gw = GenericWork.find(work.id)
         expect(gw.representative_id).to eq(file_set.id)
         expect(gw.thumbnail_id).to eq(file_set.id)
         expect { actor.destroy }.to change { ActiveFedora::Aggregation::Proxy.count }.by(-1)
-        gw = GenericWork.load_instance_from_solr(work.id)
+        gw = GenericWork.find(work.id)
         expect(gw.representative_id).to be_nil
         expect(gw.thumbnail_id).to be_nil
       end

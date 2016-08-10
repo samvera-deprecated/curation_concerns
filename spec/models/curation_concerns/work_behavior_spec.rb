@@ -20,7 +20,8 @@ describe CurationConcerns::WorkBehavior do
   describe '#to_s' do
     it 'uses the provided titles' do
       subject.title = %w(Hello World)
-      expect(subject.to_s).to eq('Hello | World')
+      expect(subject.to_s).to include 'Hello'
+      expect(subject.to_s).to include 'World'
     end
   end
 

@@ -117,6 +117,7 @@ module CurationConcerns::CurationConcernController
 
     def build_form
       @form = form_class.new(curation_concern, current_ability)
+      @collections = Collection.all
     end
 
     def actor
