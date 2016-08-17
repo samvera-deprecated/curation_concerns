@@ -3,12 +3,12 @@ module CurationConcerns
     class AddAsMemberOfCollectionsActor < AbstractActor
       def create(attributes)
         collection_ids = attributes.delete(:member_of_collection_ids)
-        next_actor.create(attributes) && add_to_collections(collection_ids) && curation_concern.save
+        add_to_collections(collection_ids) && next_actor.create(attributes)
       end
 
       def update(attributes)
         collection_ids = attributes.delete(:member_of_collection_ids)
-        add_to_collections(collection_ids) && curation_concern.save && next_actor.update(attributes)
+        add_to_collections(collection_ids) && next_actor.update(attributes)
       end
 
       private
