@@ -39,6 +39,11 @@ module CurationConcerns
         Hash[file_presenters.map { |file| [file.to_s, file.id] }]
       end
 
+      # Get a list of collection id/title pairs for the select form
+      def collections_for_select
+        ::Collection.all.map { |col| [col.first_title, col.id] }
+      end
+
       class << self
         # This determines whether the allowed parameters are single or multiple.
         # By default it delegates to the model.
