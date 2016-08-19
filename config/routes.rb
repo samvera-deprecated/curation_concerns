@@ -12,4 +12,10 @@ CurationConcerns::Engine.routes.draw do
   resources :users, only: [] do
     resources :operations, only: [:index, :show]
   end
+
+  namespace :admin do
+    resources :features, only: [:index] do
+      resources :strategies, only: [:update, :destroy]
+    end
+  end
 end
