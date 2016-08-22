@@ -7,7 +7,8 @@ if ENV['RDF_VERSION']
   gem 'rdf', ENV['RDF_VERSION']
 end
 gem 'hydra-pcdm', github:'projecthydra/hydra-pcdm', branch: :master
-gem 'active-fedora', '11.0.0.rc6'
+gem 'hydra-works', github:'projecthydra/hydra-works', branch: :master
+gem 'active-fedora', '11.0.0.rc7'
 
 group :development, :test do
   gem 'simplecov', '~> 0.9', require: false
