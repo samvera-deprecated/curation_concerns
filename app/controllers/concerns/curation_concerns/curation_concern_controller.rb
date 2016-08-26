@@ -134,8 +134,8 @@ module CurationConcerns::CurationConcernController
         end
     end
 
-    def _prefixes
-      @_prefixes ||= super + ['curation_concerns/base']
+    def local_prefixes
+      super + ['curation_concerns/base']
     end
 
     def after_create_response

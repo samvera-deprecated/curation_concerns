@@ -239,8 +239,8 @@ module CurationConcerns
       end
 
       # Include 'catalog' and 'curation_concerns/base' in the search path for views
-      def _prefixes
-        @_prefixes ||= super + ['catalog', 'curation_concerns/base']
+      def local_prefixes
+        super + ['catalog', 'curation_concerns/base']
       end
   end # module CollectionsControllerBehavior
 end # module Hydra
