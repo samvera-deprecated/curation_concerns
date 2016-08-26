@@ -77,9 +77,8 @@ module CurationConcerns
         render 'single_use_error', layout: "error", status: 404
       end
 
-      def _prefixes
-        # This allows us to use the attributes templates in curation_concerns/base
-        @_prefixes ||= super + ['curation_concerns/base']
+      def local_prefixes
+        super + ['curation_concerns/base']
       end
   end
 end
