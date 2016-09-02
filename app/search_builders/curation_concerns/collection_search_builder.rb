@@ -30,18 +30,8 @@ module CurationConcerns
       { read: [:read, :edit], edit: [:edit] }
     end
 
-    ## Overrides
-
-    # unprotect lib/blacklight/access_controls/enforcement.rb methods
-    # Remove these when https://github.com/projectblacklight/blacklight-access_controls/pull/23 is merged/released/required
-    def discovery_permissions
-      super
-    end
-
-    def discovery_permissions=(*args)
-      super
-    end
-
+    # @!group Overrides
+    #
     # This overrides the filter_models in FilterByType
     def filter_models(solr_parameters)
       solr_parameters[:fq] ||= []
