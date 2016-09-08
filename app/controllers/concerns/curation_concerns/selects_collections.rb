@@ -61,8 +61,6 @@ module CurationConcerns::SelectsCollections
   end
 
   def collections_search_builder(access_level = nil)
-    collections_search_builder_class.new(self, nil).tap do |builder|
-      builder.discovery_permissions = access_levels[access_level] if access_level
-    end
+    collections_search_builder_class.new(self, access_levels[access_level])
   end
 end
