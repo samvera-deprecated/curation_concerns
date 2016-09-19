@@ -143,6 +143,9 @@ en:
       expiration:
         time: "in %{value} hours"
         lesser_time: in less than one hour
+    dashboard:
+      menu:
+        index: "Admin Dashboard"
   blacklight:
     search:
       fields:

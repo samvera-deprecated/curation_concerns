@@ -9,5 +9,9 @@ feature 'admin dashboard' do
     it "renders" do
       visit "/admin"
     end
+    it "loads the sidebar" do
+      visit "/admin"
+      expect(page).to have_link "Admin Dashboard"
+    end
   end
 end

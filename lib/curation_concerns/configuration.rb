@@ -145,8 +145,20 @@ module CurationConcerns
 
     # @!attribute [w] dashboard_configuration
     #   Configuration for dashboard rendering.
+    attr_writer :dashboard_configuration
     def dashboard_configuration
-      @dashboard_configuration ||= {}
+      @dashboard_configuration ||= {
+        menu: {
+          index: {}
+        },
+        actions: {
+          index: {
+            partials: [
+              "total_objects"
+            ]
+          }
+        }
+      }
     end
 
     callback.enable :after_create_concern, :after_create_fileset,
