@@ -6,9 +6,6 @@
                           <%= application_name %>
                         <% end %>
                         <a href="#" class="x-navigation-control"></a>
-                        <% @configuration[:menu].each do |key, config| %>
-                          <li><%= link_to t("curation_concerns.dashboard.menu.#{key}"), controller: :"curation_concerns/admin", action: key %></li>
-                        <% end %>
+                        <%= render "admin_menu", configuration: @configuration %>
                     </li>
                 </ul>
-
