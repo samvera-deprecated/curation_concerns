@@ -3,6 +3,7 @@ module CurationConcerns
     cattr_accessor :configuration
     self.configuration = CurationConcerns.config.dashboard_configuration
     before_action :require_permissions
+    layout "admin"
 
     def index
     end
