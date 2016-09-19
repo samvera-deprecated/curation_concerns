@@ -16,7 +16,7 @@ module CurationConcerns
       end
 
       def load_configuration
-        @configuration = self.class.configuration
+        @configuration = self.class.configuration.with_indifferent_access
       end
   end
 end
