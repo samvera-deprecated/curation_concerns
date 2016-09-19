@@ -143,6 +143,12 @@ module CurationConcerns
       @ingest_queue_name ||= :default
     end
 
+    # @!attribute [w] dashboard_configuration
+    #   Configuration for dashboard rendering.
+    def dashboard_configuration
+      @dashboard_configuration ||= {}
+    end
+
     callback.enable :after_create_concern, :after_create_fileset,
                     :after_update_content, :after_revert_content,
                     :after_update_metadata, :after_import_local_file_success,
