@@ -9,15 +9,14 @@ describe 'curation_concerns/admin/index.html.erb', type: :view do
   end
   let(:configuration) do
     { actions: {
-        index: {
-            partials: [
-                "my_view_1",
-                "my_view_2"
-            ]
-        }
+      index: {
+        partials: [
+          "my_view_1",
+          "my_view_2"
+        ]
+      }
     } }
   end
-
 
   it "renders all the partials" do
     render

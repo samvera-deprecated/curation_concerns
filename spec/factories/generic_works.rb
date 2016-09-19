@@ -15,8 +15,14 @@ FactoryGirl.define do
 
     factory :public_generic_work, traits: [:public]
 
+    factory :authenticated_generic_work, traits: [:authenticated]
+
     trait :public do
       visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+    end
+
+    trait :authenticated do
+      visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
     end
 
     factory :work_with_one_file do

@@ -157,6 +157,9 @@ module CurationConcerns
               "total_objects"
             ]
           }
+        },
+        data_sources: {
+          resource_stats: CurationConcerns::ResourceStatisticsSource
         }
       }
     end
