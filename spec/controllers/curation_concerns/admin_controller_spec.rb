@@ -20,4 +20,31 @@ RSpec.describe CurationConcerns::AdminController do
       end
     end
   end
+
+  describe "GET missing_thing" do
+    before do
+      # Add necessary route.
+      # TODO: Consider a different pattern for this.
+      CurationConcerns::Engine.routes.draw do
+        get '/admin/missing_thing' => 'admin#missing_thing'
+      end
+
+      allow(controller).to receive(:authorize!).with(:read, :admin_dashboard).and_return(true)
+    end
+    after do
+      Rails.application.reload_routes!
+    end
+    context "when it exists in the configuration" do
+      before do
+        config = CurationConcerns.config.dashboard_configuration
+        config[:actions] = config[:actions].merge(missing_thing: {})
+        described_class.configuration = config
+      end
+      it "renders index" do
+        get :missing_thing
+
+        expect(response).to render_template "index"
+      end
+    end
+  end
 end

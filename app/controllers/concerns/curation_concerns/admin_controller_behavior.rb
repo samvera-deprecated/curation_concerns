@@ -8,31 +8,26 @@ module CurationConcerns
       before_action :require_permissions
       before_action :load_configuration
       layout "admin"
-    end
 
-    def index
-      render "index"
+      def index
+        render "index"
+      end
     end
 
     private
 
-    def require_permissions
-      authorize! :read, :admin_dashboard
-    end
-
-    def load_configuration
-      @configuration = self.class.configuration.with_indifferent_access
-    end
-
-    ##
-    # Loads the index action if it's only defined in the configuration.
-    def action_missing(action)
-      if @configuration[:actions].include?(action)
-        index
-      else
-        super
+      def require_permissions
+        authorize! :read, :admin_dashboard
       end
-    end
 
+      def load_configuration
+        @configuration = self.class.configuration.with_indifferent_access
+      end
+
+      ##
+      # Loads the index action if it's only defined in the configuration.
+      def action_missing(action)
+        index if @configuration[:actions].include?(action)
+      end
   end
 end
