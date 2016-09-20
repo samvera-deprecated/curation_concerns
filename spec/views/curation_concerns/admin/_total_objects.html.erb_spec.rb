@@ -22,7 +22,7 @@ describe 'curation_concerns/admin/_total_objects.html.erb', type: :view do
     expect(rendered).to have_content("Visibility Open Access (25)")
     expect(rendered).to have_content("Institution Name (300)")
     expect(rendered).to have_content("Private (777)")
-    expect(rendered).to have_content("Embargo (67)")
-    expect(rendered).to have_content("Lease (10)")
+    expect(rendered).to have_content("Embargo (Expired, Authenticated) (66)")
+    expect(rendered).to have_content("Lease (Active, Authenticated) (8888)")
   end
 end

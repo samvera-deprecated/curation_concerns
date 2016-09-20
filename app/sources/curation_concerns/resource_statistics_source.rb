@@ -15,27 +15,35 @@ module CurationConcerns
       end
 
       def expired_embargo_now_authenticated_concerns_count
+        relation.where(Hydra.config.permissions.read.group => 'registered').where("embargo_history_ssim:*").count
       end
 
       def expired_embargo_now_open_concerns_count
+        0
       end
 
       def active_embargo_now_authenticated_concerns_count
+        relation.where(Hydra.config.permissions.read.group => 'registered').where("embargo_release_date_dtsi:[NOW TO *]").count
       end
 
       def active_embargo_now_restricted_concerns_count
+        0
       end
 
       def expired_lease_now_authenticated_concerns_count
+        0
       end
 
       def expired_lease_now_restricted_concerns_count
+        0
       end
 
       def active_lease_now_authenticated_concerns_count
+        0
       end
 
       def active_lease_now_open_concerns_count
+        0
       end
 
       private
