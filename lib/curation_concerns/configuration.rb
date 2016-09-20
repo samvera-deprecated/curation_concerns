@@ -149,12 +149,19 @@ module CurationConcerns
     def dashboard_configuration
       @dashboard_configuration ||= {
         menu: {
-          index: {}
+          index: {},
+          search: {}
         },
         actions: {
           index: {
             partials: [
               "total_objects"
+            ]
+          },
+          search: {
+            partials: [
+              "catalog/facets",
+              "catalog/search_results"
             ]
           }
         },

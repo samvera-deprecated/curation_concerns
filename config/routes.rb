@@ -8,6 +8,7 @@ CurationConcerns::Engine.routes.draw do
   get '/admin', to: 'admin#index', as: :admin
   namespace :admin do
     get :test
+    get :search, as: :catalog
   end
 
   # mount BrowseEverything::Engine => '/remote_files/browse'

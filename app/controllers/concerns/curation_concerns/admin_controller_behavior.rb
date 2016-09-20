@@ -3,16 +3,35 @@ module CurationConcerns
     extend ActiveSupport::Concern
 
     included do
+      include Blacklight::Catalog
       cattr_accessor :configuration
       self.configuration = CurationConcerns.config.dashboard_configuration
       before_action :require_permissions
       before_action :load_configuration
       layout "admin"
-
+      copy_blacklight_config_from ::CatalogController
       def index
         render "index"
       end
+
+      def search
+        (@response, @document_list) = search_results(params)
+
+        respond_to do |format|
+          format.html do
+            store_preferred_view
+            render "index"
+          end
+          additional_response_formats(format)
+          document_export_formats(format)
+        end
+      end
+
+      def _prefixes
+        @_prefixes ||= super + ['catalog/']
+      end
     end
+
 
     private
 
