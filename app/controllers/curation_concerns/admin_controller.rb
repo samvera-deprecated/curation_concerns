@@ -7,6 +7,7 @@ module CurationConcerns
     layout "admin"
 
     def index
+      render "index"
     end
 
     private
@@ -17,6 +18,16 @@ module CurationConcerns
 
       def load_configuration
         @configuration = self.class.configuration.with_indifferent_access
+      end
+
+      ##
+      # Loads the index action if it's only defined in the configuration.
+      def action_missing(action)
+        if @configuration[:actions].include?(action)
+          index
+        else
+          super
+        end
       end
   end
 end
