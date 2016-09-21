@@ -10,12 +10,16 @@ module CurationConcerns
       before_action :load_configuration
       layout "admin"
       copy_blacklight_config_from ::CatalogController
+      configure_blacklight do |config|
+        config.view.aggregate.partials = [:aggregate_information]
+      end
       def index
         render "index"
       end
 
       def search
         (@response, @document_list) = search_results(params)
+        @search_builder = search_builder.with(params)
 
         respond_to do |format|
           format.html do
@@ -30,8 +34,11 @@ module CurationConcerns
       def _prefixes
         @_prefixes ||= super + ['catalog/']
       end
-    end
 
+      def search_action_url(options = {})
+        admin_catalog_url(options.except(:controller, :action))
+      end
+    end
 
     private
 

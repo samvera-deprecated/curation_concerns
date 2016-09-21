@@ -1,67 +1,83 @@
 module CurationConcerns
   class ResourceStatisticsSource
-    class << self
-      def open_concerns_count
-        # TODO: verify that this is not pulling all records and then counting
-        relation.where(Hydra.config.permissions.read.group => 'public').count
-      end
-
-      def authenticated_concerns_count
-        relation.where(Hydra.config.permissions.read.group => 'registered').count
-      end
-
-      def restricted_concerns_count
-        # TODO: Replace this with a query that that returns all documents that
-        #       either lack the `read_access_group_ssim` key, or have the key
-        #       without the values of `public` or `registered`
-        relation.count - (authenticated_concerns_count + open_concerns_count)
-      end
-
-      def expired_embargo_now_authenticated_concerns_count
-        relation.where(Hydra.config.permissions.read.group => 'registered').where("embargo_history_ssim:*").count
-      end
-
-      def expired_embargo_now_open_concerns_count
-        relation.where(Hydra.config.permissions.read.group => 'public').where("embargo_history_ssim:*").count
-      end
-
-      def active_embargo_now_authenticated_concerns_count
-        relation.where(Hydra.config.permissions.read.group => 'registered').where("embargo_release_date_dtsi:[NOW TO *]").count
-      end
-
-      def active_embargo_now_restricted_concerns_count
-        # TODO: Replace the subtraction with another `#where` query that returns
-        #       all actively embargoed documents that either lack the
-        #       `read_access_group_ssim` key, or have the key without the values
-        #       of `public` or `registered`
-        relation.where("embargo_release_date_dtsi:[NOW TO *]").count - active_embargo_now_authenticated_concerns_count
-      end
-
-      def expired_lease_now_authenticated_concerns_count
-        relation.where(Hydra.config.permissions.read.group => 'registered').where("lease_history_ssim:*").count
-      end
-
-      def expired_lease_now_restricted_concerns_count
-        # TODO: Replace the subtraction with another `#where` query that returns
-        #       all expired lease documents that either lack the
-        #       `read_access_group_ssim` key, or have the key without the values
-        #       of `public` or `registered`
-        relation.where("lease_history_ssim:*").count - expired_lease_now_authenticated_concerns_count
-      end
-
-      def active_lease_now_authenticated_concerns_count
-        relation.where(Hydra.config.permissions.read.group => 'registered').where("lease_expiration_date_dtsi:[NOW TO *]").count
-      end
-
-      def active_lease_now_open_concerns_count
-        relation.where(Hydra.config.permissions.read.group => 'public').where("lease_expiration_date_dtsi:[NOW TO *]").count
-      end
-
-      private
-
-        def relation
-          CurationConcerns::WorkRelation.new
-        end
+    attr_accessor :search_builder, :repository
+    def initialize(search_builder: nil, repository: nil)
+      @search_builder = search_builder || ::CatalogController.new.search_builder
+      @repository = repository || ::CatalogController.new.repository
+      # Remove gated discovery.
+      @search_builder = self.search_builder.except(:add_access_controls_to_solr_params)
+      solr_arguments[:fq] ||= []
+      solr_arguments[:rows] = 0
     end
+
+    def open_concerns_count
+      search_with_query("#{Hydra.config.permissions.read.group}:public")
+    end
+
+    def authenticated_concerns_count
+      search_with_query("#{Hydra.config.permissions.read.group}:registered")
+    end
+
+    def restricted_concerns_count
+      # TODO: Replace this with a query that that returns all documents that
+      #       either lack the `read_access_group_ssim` key, or have the key
+      #       without the values of `public` or `registered`
+      repository.search(solr_arguments)["response"]["numFound"] - (authenticated_concerns_count + open_concerns_count)
+    end
+
+    def expired_embargo_now_authenticated_concerns_count
+      search_with_query(["#{Hydra.config.permissions.read.group}:registered", "embargo_history_ssim:*"])
+    end
+
+    def expired_embargo_now_open_concerns_count
+      search_with_query(["#{Hydra.config.permissions.read.group}:public", "embargo_history_ssim:*"])
+    end
+
+    def active_embargo_now_authenticated_concerns_count
+      search_with_query(["#{Hydra.config.permissions.read.group}:registered", "embargo_release_date_dtsi:[NOW TO *]"])
+    end
+
+    def active_embargo_now_restricted_concerns_count
+      # TODO: Replace the subtraction with another `#where` query that returns
+      #       all actively embargoed documents that either lack the
+      #       `read_access_group_ssim` key, or have the key without the values
+      #       of `public` or `registered`
+      all_expired_embargos = search_with_query("embargo_release_date_dtsi:[NOW TO *]")
+      all_expired_embargos - active_embargo_now_authenticated_concerns_count
+    end
+
+    def expired_lease_now_authenticated_concerns_count
+      search_with_query(["#{Hydra.config.permissions.read.group}:registered", "lease_history_ssim:*"])
+    end
+
+    def expired_lease_now_restricted_concerns_count
+      # TODO: Replace the subtraction with another `#where` query that returns
+      #       all expired lease documents that either lack the
+      #       `read_access_group_ssim` key, or have the key without the values
+      #       of `public` or `registered`
+      all_leased_documents = search_with_query("lease_history_ssim:*")
+      all_leased_documents - expired_lease_now_authenticated_concerns_count
+    end
+
+    def active_lease_now_authenticated_concerns_count
+      search_with_query(["#{Hydra.config.permissions.read.group}:registered", "lease_expiration_date_dtsi:[NOW TO *]"])
+    end
+
+    def active_lease_now_open_concerns_count
+      search_with_query(["#{Hydra.config.permissions.read.group}:public", "lease_expiration_date_dtsi:[NOW TO *]"])
+    end
+
+    private
+
+      def solr_arguments
+        @solr_arguments ||= search_builder.to_h
+      end
+
+      def search_with_query(query)
+        q = { fq: Array.wrap(query) }
+        repository.search(solr_arguments.merge(q) do |_key, v1, v2|
+          v1 + v2
+        end)["response"]["numFound"]
+      end
   end
 end

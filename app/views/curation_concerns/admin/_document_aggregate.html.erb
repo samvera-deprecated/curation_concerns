@@ -1,0 +1,5 @@
+Aggregate Information:
+
+<% resource_stats = @configuration[:data_sources][:resource_stats] %>
+<% resource_stats = resource_stats.new(search_builder: @search_builder) %>
+<%= render "resource_stats", resource_stats: resource_stats %>

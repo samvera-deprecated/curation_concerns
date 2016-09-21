@@ -1,15 +1,2 @@
-<% resource_stats = @configuration[:data_sources][:resource_stats] %>
-<h4>Totals by Visibility</h4>
-<ul>
-  <li><%= t("curation_concerns.visibility.open.text") %> <span class="count">(<%= resource_stats.open_concerns_count %>)</span></li>
-  <li><%= t("curation_concerns.visibility.authenticated.text") %> <span class="count">(<%= resource_stats.authenticated_concerns_count %>)</span></li>
-  <li><%= t("curation_concerns.visibility.restricted.text") %> <span class="count">(<%= resource_stats.restricted_concerns_count %>)</span></li>
-  <li><%= t("curation_concerns.visibility.embargo.expired.authenticated.text") %> <span class="count">(<%= resource_stats.expired_embargo_now_authenticated_concerns_count %>)</span></li>
-  <li><%= t("curation_concerns.visibility.embargo.expired.open.text") %> <span class="count">(<%= resource_stats.expired_embargo_now_open_concerns_count %>)</span></li>
-  <li><%= t("curation_concerns.visibility.embargo.active.authenticated.text") %> <span class="count">(<%= resource_stats.active_embargo_now_authenticated_concerns_count %>)</span></li>
-  <li><%= t("curation_concerns.visibility.embargo.active.restricted.text") %> <span class="count">(<%= resource_stats.active_embargo_now_restricted_concerns_count %>)</span></li>
-  <li><%= t("curation_concerns.visibility.lease.expired.restricted.text") %> <span class="count">(<%= resource_stats.expired_lease_now_restricted_concerns_count %>)</span></li>
-  <li><%= t("curation_concerns.visibility.lease.expired.authenticated.text") %> <span class="count">(<%= resource_stats.expired_lease_now_authenticated_concerns_count %>)</span></li>
-  <li><%= t("curation_concerns.visibility.lease.active.authenticated.text") %> <span class="count">(<%= resource_stats.active_lease_now_authenticated_concerns_count %>)</span></li>
-  <li><%= t("curation_concerns.visibility.lease.active.open.text") %> <span class="count">(<%= resource_stats.active_lease_now_open_concerns_count %>)</span></li>
-</ul>
+<% resource_stats = @configuration[:data_sources][:resource_stats].new %>
+<%= render "resource_stats", resource_stats: resource_stats %>

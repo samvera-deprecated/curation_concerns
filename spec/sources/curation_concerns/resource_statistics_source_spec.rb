@@ -1,9 +1,23 @@
 require 'spec_helper'
 
 describe CurationConcerns::ResourceStatisticsSource do
+  subject { described_class.new }
+  context "when given a scoped query" do
+    it "only returns stats for those values" do
+      create :public_generic_work, creator: ["Test"]
+      create :public_generic_work, creator: ["Alfred"]
+      search_builder = CurationConcerns::AdminController.new.search_builder.except(:add_access_controls_to_solr_params)
+
+      expect(subject.open_concerns_count).to eq 2
+      search_builder = search_builder.with(f: { creator_sim: ["Test"] }, fq: { test_sim: [1] })
+
+      expect(described_class.new(search_builder: search_builder).open_concerns_count).to eq 1
+    end
+  end
   describe "#open_concerns_count" do
     it "returns the number of open concerns" do
-      expect(described_class.open_concerns_count).to eq(0)
+      create :private_generic_work
+      expect(subject.open_concerns_count).to eq(0)
     end
 
     context "when I have concerns" do
@@ -11,7 +25,7 @@ describe CurationConcerns::ResourceStatisticsSource do
         create :public_generic_work
       end
       it "returns the number of open concerns" do
-        expect(described_class.open_concerns_count).to eq(1)
+        expect(subject.open_concerns_count).to eq(1)
       end
     end
   end
@@ -22,7 +36,7 @@ describe CurationConcerns::ResourceStatisticsSource do
         create :authenticated_generic_work
       end
       it "returns the number of open concerns" do
-        expect(described_class.authenticated_concerns_count).to eq(1)
+        expect(subject.authenticated_concerns_count).to eq(1)
       end
     end
   end
@@ -33,7 +47,7 @@ describe CurationConcerns::ResourceStatisticsSource do
         create :generic_work
       end
       it "returns the number of open concerns" do
-        expect(described_class.restricted_concerns_count).to eq(1)
+        expect(subject.restricted_concerns_count).to eq(1)
       end
     end
   end
@@ -51,7 +65,7 @@ describe CurationConcerns::ResourceStatisticsSource do
       let(:current_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED }
       let(:future_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
       it "returns the number of embargo concerns" do
-        expect(described_class.active_embargo_now_authenticated_concerns_count).to eq(1)
+        expect(subject.active_embargo_now_authenticated_concerns_count).to eq(1)
       end
     end
 
@@ -60,7 +74,7 @@ describe CurationConcerns::ResourceStatisticsSource do
       let(:current_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE }
       let(:future_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED }
       it "returns the number of embargo concerns" do
-        expect(described_class.active_embargo_now_restricted_concerns_count).to eq(1)
+        expect(subject.active_embargo_now_restricted_concerns_count).to eq(1)
       end
     end
 
@@ -69,7 +83,7 @@ describe CurationConcerns::ResourceStatisticsSource do
       let(:current_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE }
       let(:future_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED }
       it "returns the number of embargo concerns" do
-        expect(described_class.expired_embargo_now_authenticated_concerns_count).to eq(1)
+        expect(subject.expired_embargo_now_authenticated_concerns_count).to eq(1)
       end
     end
 
@@ -78,7 +92,7 @@ describe CurationConcerns::ResourceStatisticsSource do
       let(:current_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED }
       let(:future_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
       it "returns the number of embargo concerns" do
-        expect(described_class.expired_embargo_now_open_concerns_count).to eq(1)
+        expect(subject.expired_embargo_now_open_concerns_count).to eq(1)
       end
     end
   end
@@ -96,7 +110,7 @@ describe CurationConcerns::ResourceStatisticsSource do
       let(:current_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED }
       let(:future_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE }
       it "returns the number of lease concerns" do
-        expect(described_class.active_lease_now_authenticated_concerns_count).to eq(1)
+        expect(subject.active_lease_now_authenticated_concerns_count).to eq(1)
       end
     end
 
@@ -105,7 +119,7 @@ describe CurationConcerns::ResourceStatisticsSource do
       let(:current_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
       let(:future_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED }
       it "returns the number of lease concerns" do
-        expect(described_class.active_lease_now_open_concerns_count).to eq(1)
+        expect(subject.active_lease_now_open_concerns_count).to eq(1)
       end
     end
 
@@ -114,7 +128,7 @@ describe CurationConcerns::ResourceStatisticsSource do
       let(:current_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
       let(:future_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED }
       it "returns the number of lease concerns" do
-        expect(described_class.expired_lease_now_authenticated_concerns_count).to eq(1)
+        expect(subject.expired_lease_now_authenticated_concerns_count).to eq(1)
       end
     end
 
@@ -123,7 +137,7 @@ describe CurationConcerns::ResourceStatisticsSource do
       let(:current_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED }
       let(:future_state) { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE }
       it "returns the number of lease concerns" do
-        expect(described_class.expired_lease_now_restricted_concerns_count).to eq(1)
+        expect(subject.expired_lease_now_restricted_concerns_count).to eq(1)
       end
     end
   end
