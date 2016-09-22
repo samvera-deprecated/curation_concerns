@@ -254,7 +254,10 @@ module CurationConcerns
       end
 
       def remove_members_from_collection
-        @collection.members.delete(batch.map { |pid| ActiveFedora::Base.find(pid) })
+        members = batch.map { |pid| ActiveFedora::Base.find(pid) }
+        byebug
+        true
+        # @collection.members.delete(batch.map { |pid| ActiveFedora::Base.find(pid) })
       end
 
       def assign_batch_to_collection
