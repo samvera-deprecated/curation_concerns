@@ -23,7 +23,7 @@ module CurationConcerns
     end
 
     def label(id)
-      authority.find(id).fetch('term')
+      authority.find(id)['term']
     end
 
     def active_elements
