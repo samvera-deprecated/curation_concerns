@@ -12,8 +12,8 @@ module CurationConcerns
         solr_doc['thumbnail_path_ss'] = thumbnail_path
 
         object.in_collections.each do |col|
-          solr_doc['member_of_collection_ids_ssim'] = col.id
-          solr_doc['member_of_collections_ssim'] = col.first_title
+          (solr_doc['member_of_collection_ids_ssim'] ||= []) << col.id
+          (solr_doc['member_of_collections_ssim'] ||= []) << col.first_title
         end
       end
     end
