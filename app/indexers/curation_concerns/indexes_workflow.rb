@@ -12,7 +12,6 @@ module CurationConcerns
     # Write the suppressed status into the solr_document
     # @params [Hash] solr_document the solr document to add the field to
     def index_suppressed(solr_document)
-      # solr_document[suppressed_field] = object.suppressed2?
       solr_document[suppressed_field] = object.suppressed?
     end
 
