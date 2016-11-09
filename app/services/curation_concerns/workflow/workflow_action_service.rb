@@ -30,7 +30,7 @@ module CurationConcerns
 
         def create_sipity_comment
           return true unless comment_text.present?
-          Sipity::Comment.create!(entity: subject.entity, agent: subject.user, comment: comment_text)
+          Sipity::Comment.create!(entity: subject.entity, agent: subject.agent, comment: comment_text)
         end
 
         def handle_sipity_notifications(comment:)
