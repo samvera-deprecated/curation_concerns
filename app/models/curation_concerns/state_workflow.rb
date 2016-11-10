@@ -7,7 +7,7 @@ module CurationConcerns
     attr_reader :state
 
     def pending?
-      state == :pending
+      state == :pending || state == ::RDF::URI("http://fedora.info/definitions/1/0/access/ObjState#inactive")
     end
   end
 end
