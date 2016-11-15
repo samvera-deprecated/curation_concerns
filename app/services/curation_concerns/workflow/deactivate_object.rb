@@ -4,7 +4,7 @@ module CurationConcerns
     # deactivates an object.
     class DeactivateObject
       def self.call(target:, **)
-        target.state = Vocab::FedoraResourceStatus.inactive
+        target.deactivate
       end
     end
   end

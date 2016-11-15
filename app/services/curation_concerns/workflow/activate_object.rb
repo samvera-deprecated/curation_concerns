@@ -2,7 +2,7 @@ module CurationConcerns
   module Workflow
     class ActivateObject
       def self.call(target:, **)
-        target.state = Vocab::FedoraResourceStatus.active
+        target.activate
       end
     end
   end

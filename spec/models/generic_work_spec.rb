@@ -37,8 +37,8 @@ describe GenericWork do
     let(:work) { described_class.new(state: state) }
     subject { work.suppressed? }
 
-    context "when the state is 'pending'" do
-      let(:state) { 'pending' }
+    context "when it has its initial state" do
+      let(:state) { ::RDF::URI('http://fedora.info/definitions/1/0/access/ObjState#inactive') }
       it { is_expected.to be true }
     end
 

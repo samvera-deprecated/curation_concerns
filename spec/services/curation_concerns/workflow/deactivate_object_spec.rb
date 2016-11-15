@@ -12,7 +12,7 @@ RSpec.describe CurationConcerns::Workflow::DeactivateObject do
     end
 
     it "makes it active" do
-      expect(work).to receive(:state=).with(Vocab::FedoraResourceStatus.inactive)
+      expect(work).to receive(:deactivate)
       subject
     end
   end
