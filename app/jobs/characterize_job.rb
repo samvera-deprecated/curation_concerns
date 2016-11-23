@@ -12,6 +12,6 @@ class CharacterizeJob < ActiveJob::Base
     file_set.characterization_proxy.save!
     file_set.update_index
     file_set.parent.in_collections.each(&:update_index) if file_set.parent
-    CreateDerivativesJob.perform_later(file_set, file_id, filename)
+    CreateDerivativesJob.perform_now(file_set, file_id, filename)
   end
 end
