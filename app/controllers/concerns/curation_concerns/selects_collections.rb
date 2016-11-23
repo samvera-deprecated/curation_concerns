@@ -9,6 +9,8 @@ module CurationConcerns::SelectsCollections
     end
   end
 
+  # @return [Hash{Symbol => Array[Symbol]}] bottom-up map of "what you need" to "what qualifies"
+  # @note i.e., requiring :read access is satisfied by either :read or :edit access
   def access_levels
     { read: [:read, :edit], edit: [:edit] }
   end
@@ -59,8 +61,6 @@ module CurationConcerns::SelectsCollections
   end
 
   def collections_search_builder(access_level = nil)
-    collections_search_builder_class.new(self).tap do |builder|
-      builder.discovery_perms = access_levels[access_level] if access_level
-    end
+    collections_search_builder_class.new(self, access_levels[access_level])
   end
 end

@@ -13,6 +13,9 @@ module CurationConcerns
 
       # This is needed as of BL 3.7
       copy_blacklight_config_from(::CatalogController)
+      configure_blacklight do |config|
+        config.search_builder_class = CurationConcerns::CollectionSearchBuilder
+      end
 
       # Catch permission errors
       rescue_from Hydra::AccessDenied, CanCan::AccessDenied, with: :deny_collection_access
@@ -203,8 +206,8 @@ module CurationConcerns
       alias collection_member_search_builder member_search_builder
       deprecation_deprecate collection_member_search_builder: "use member_search_builder instead"
 
-      def list_search_builder
-        list_search_builder_class.new(self)
+      def list_search_builder(access_level = nil)
+        list_search_builder_class.new(self, access_level)
       end
 
       alias collections_search_builder list_search_builder

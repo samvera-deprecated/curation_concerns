@@ -20,9 +20,7 @@ module CurationConcerns
     private
 
       def list_search_builder(access)
-        list_search_builder_class.new(context).tap do |builder|
-          builder.discovery_perms = [access]
-        end
+        list_search_builder_class.new(context, access)
       end
   end
 end
