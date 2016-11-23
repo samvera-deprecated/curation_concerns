@@ -25,7 +25,7 @@ describe CharacterizeJob do
       expect(Hydra::Works::CharacterizationService).to receive(:run).with(file, filename)
       expect(file).to receive(:save!)
       expect(file_set).to receive(:update_index)
-      expect(CreateDerivativesJob).to receive(:perform_later).with(file_set, file.id, filename)
+      expect(CreateDerivativesJob).to receive(:perform_now).with(file_set, file.id, filename)
       described_class.perform_now(file_set, file.id)
     end
   end
@@ -46,7 +46,7 @@ describe CharacterizeJob do
       allow(Hydra::Works::CharacterizationService).to receive(:run).with(file, filename)
       allow(file).to receive(:save!)
       allow(file_set).to receive(:update_index)
-      allow(CreateDerivativesJob).to receive(:perform_later).with(file_set, file.id, filename)
+      allow(CreateDerivativesJob).to receive(:perform_now).with(file_set, file.id, filename)
     end
     it "reindexes the collection" do
       expect(collection).to receive(:update_index)
