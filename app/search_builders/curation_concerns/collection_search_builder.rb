@@ -39,10 +39,6 @@ module CurationConcerns
       @discovery_perms || super
     end
 
-    def discovery_permissions=(*args)
-      super
-    end
-
     # This overrides the filter_models in FilterByType
     def filter_models(solr_parameters)
       solr_parameters[:fq] ||= []
