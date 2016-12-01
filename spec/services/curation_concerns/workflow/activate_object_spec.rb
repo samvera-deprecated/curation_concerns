@@ -12,7 +12,7 @@ RSpec.describe CurationConcerns::Workflow::ActivateObject do
     end
 
     it "makes it active" do
-      expect(work).to receive(:state=).with(Vocab::FedoraResourceStatus.active)
+      expect(work).to receive(:activate)
       subject
     end
   end

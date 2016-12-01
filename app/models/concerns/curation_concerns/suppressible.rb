@@ -1,20 +1,25 @@
 module CurationConcerns
   # Workflow considerations
-  module Publishable
+  module Suppressible
     extend ActiveSupport::Concern
 
     included do
       # This holds the workflow state
       property :state, predicate: Vocab::FedoraResourceStatus.objState, multiple: false
-
-      class_attribute :state_workflow, instance_writer: false
-      self.state_workflow = StateWorkflow
     end
 
-    # Override this method if you have some critera by which records should not
+    def deactivate
+      self.state = Vocab::FedoraResourceStatus.inactive
+    end
+
+    def activate
+      self.state = Vocab::FedoraResourceStatus.active
+    end
+
+    # Override this method if you have some criteria by which records should not
     # display in the search results.
     def suppressed?
-      state_workflow.new(state).pending?
+      state == Vocab::FedoraResourceStatus.inactive
     end
 
     def to_sipity_entity
