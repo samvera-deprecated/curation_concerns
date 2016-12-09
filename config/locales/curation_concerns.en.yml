@@ -181,6 +181,7 @@ en:
     workflow:
       default:
         deposit: "Deposit"
+      unauthorized: "The work is not currently available because it has not yet completed the approval process"
   blacklight:
     search:
       fields:
@@ -233,6 +234,8 @@ en:
     submit:
       sipity_workflow_responsibility:
         create: "Add"
+  inspect_work:
+        link_text: 'Inspect Work'
   simple_form:
     required:
       html: '<span class="label label-info required-tag">required</span>'
