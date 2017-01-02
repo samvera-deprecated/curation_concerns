@@ -14,7 +14,7 @@ describe CurationConcerns::GenericWorksController do
 
   describe 'integration test for suppressed documents' do
     let(:work) do
-      create(:work, :public, state: Vocab::FedoraResourceStatus.inactive)
+      create(:work, :public, state: CurationConcerns::Vocab::FedoraResourceStatus.inactive)
     end
     it 'renders the unavailable message because it is in workflow' do
       get :show, params: { id: work }
