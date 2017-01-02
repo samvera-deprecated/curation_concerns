@@ -19,7 +19,7 @@ module CurationConcerns::WorkBehavior
   include CurationConcerns::Suppressible
 
   included do
-    property :owner, predicate: RDF::URI.new('http://opaquenamespace.org/ns/hydra/owner'), multiple: false
+    apply_schema(ActiveTriples::Schema::WorkMetadata)
     class_attribute :human_readable_short_description, :indexer
     self.indexer = CurationConcerns::WorkIndexer
   end

@@ -11,16 +11,8 @@ module CurationConcerns
       validates_with HasOneTitleValidator
       class_attribute :human_readable_short_description, :indexer
       self.indexer = CurationConcerns::AdminSetIndexer
-      property :title, predicate: ::RDF::Vocab::DC.title do |index|
-        index.as :stored_searchable, :facetable
-      end
-      property :description, predicate: ::RDF::Vocab::DC.description do |index|
-        index.as :stored_searchable
-      end
 
-      property :creator, predicate: ::RDF::Vocab::DC11.creator do |index|
-        index.as :symbol
-      end
+      apply_schema(CurationConcerns::Schema::AdminSetMetadata)
 
       has_many :members,
                predicate: ::RDF::Vocab::DC.isPartOf,

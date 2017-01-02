@@ -4,8 +4,7 @@ module CurationConcerns
     extend ActiveSupport::Concern
 
     included do
-      # This holds the workflow state
-      property :state, predicate: Vocab::FedoraResourceStatus.objState, multiple: false
+      apply_schema(CurationConcerns::Schema::SuppressibleMetadata)
     end
 
     ##
