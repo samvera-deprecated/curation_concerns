@@ -4,8 +4,7 @@ module CurationConcerns
   module Schema
     class WorkMetadata < ActiveTriples::Schema
       property :owner,
-               predicate: RDF::URI
-                 .intern('http://opaquenamespace.org/ns/hydra/owner'),
+               predicate: Vocab::HydraProject.owner,
                multiple:  false
     end
   end

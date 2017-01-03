@@ -1,10 +1,12 @@
 require 'active_triples'
+
 require 'rdf/vocab/dc'
+require 'rdf/vocab/marc_relators'
 
 module CurationConcerns
   module Schema
     class RequiredMetadata < ActiveTriples::Schema
-      property :depositor, predicate: ::RDF::URI.intern('http://id.loc.gov/vocabulary/relators/dpt'), multiple: false do |index|
+      property :depositor, predicate: ::RDF::Vocab::MARCRelators.dpt, multiple: false do |index|
         index.as :symbol, :stored_searchable
       end
 

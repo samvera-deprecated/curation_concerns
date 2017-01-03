@@ -10,9 +10,9 @@ module CurationConcerns
     class BasicMetadata < ActiveTriples::Schema
       property :label, predicate: ActiveFedora::RDF::Fcrepo::Model.downloadFilename, multiple: false
 
-      property :relative_path, predicate: ::RDF::URI.intern('http://scholarsphere.psu.edu/ns#relativePath'), multiple: false
+      property :relative_path, predicate: Vocab::Scholarsphere.relativePath, multiple: false
 
-      property :import_url, predicate: ::RDF::URI.intern('http://scholarsphere.psu.edu/ns#importUrl'), multiple: false do |index|
+      property :import_url, predicate: Vocab::Scholarsphere.importUrl, multiple: false do |index|
         index.as :symbol
       end
 
