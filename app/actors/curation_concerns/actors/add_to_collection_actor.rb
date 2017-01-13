@@ -22,8 +22,11 @@ module CurationConcerns
           # remove from old collections
           (curation_concern.in_collection_ids - new_collection_ids).each do |old_id|
             collection = ::Collection.find(old_id)
-            collection.members.delete(curation_concern)
-            collection.save
+            # don't remove from collections current user doesn't have edit permissions for
+            if collection.edit_users.include? user.email
+              collection.members.delete(curation_concern)
+              collection.save
+            end
           end
 
           # add to new
