@@ -8,7 +8,8 @@ module CurationConcerns
       end
 
       def self.stack_actors(curation_concern)
-        [AddToCollectionActor,
+        [OptimisticLockValidator,
+         AddToCollectionActor,
          AddToWorkActor,
          AssignRepresentativeActor,
          AttachFilesActor,
