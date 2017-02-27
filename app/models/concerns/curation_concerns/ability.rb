@@ -60,6 +60,15 @@ module CurationConcerns
       can :create, curation_concerns_models
     end
 
+    ##
+    # Check if this user has the ability to edit this and the provided work
+    # @param [CurationConcern] this_work - a work
+    # @param [CurationConcern] other_work - a work
+    # @return [Boolean] - true by default
+    def can_edit_both_works?(_this_work, _other_work)
+      true
+    end
+
     private
 
       def curation_concerns_models
