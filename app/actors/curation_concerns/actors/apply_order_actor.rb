@@ -3,8 +3,7 @@ module CurationConcerns
     class ApplyOrderActor < AbstractActor
       def update(attributes)
         ordered_member_ids = attributes.delete(:ordered_member_ids)
-        sync_members(ordered_member_ids)
-        apply_order(ordered_member_ids) && next_actor.update(attributes)
+        sync_members(ordered_member_ids) && apply_order(ordered_member_ids) && next_actor.update(attributes)
       end
 
       private
@@ -20,10 +19,14 @@ module CurationConcerns
 
           (ordered_member_ids - existing_members_ids).each do |work_id|
             work = ::ActiveFedora::Base.find(work_id)
-            curation_concern.ordered_members << work
+            if work.depositor != curation_concern.depositor
+              curation_concern.errors[:ordered_member_ids] << "Works can only be related to each other if they were deposited by the same user."
+            else
+              curation_concern.ordered_members << work
+              curation_concern.save
+            end
           end
-          curation_concern.save
-          true
+          curation_concern.errors[:ordered_member_ids].empty?
         end
 
         def apply_order(new_order)
