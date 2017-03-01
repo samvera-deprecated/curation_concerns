@@ -9,7 +9,7 @@ module CurationConcerns
       private
 
         def ability
-          Ability.new(user)
+          ::Ability.new(user)
         end
 
         def can_edit_both_works?(work)
