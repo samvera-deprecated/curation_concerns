@@ -1,4 +1,6 @@
 class IngestFileJob < ActiveJob::Base
+  include CurationConcerns::Lockable
+
   queue_as CurationConcerns.config.ingest_queue_name
 
   # @param [FileSet] file_set
@@ -15,15 +17,17 @@ class IngestFileJob < ActiveJob::Base
     local_file.mime_type = opts.fetch(:mime_type, nil)
     local_file.original_name = opts.fetch(:filename, File.basename(filepath))
 
-    # Tell AddFileToFileSet service to skip versioning because versions will be minted by
-    # VersionCommitter when necessary during save_characterize_and_record_committer.
-    Hydra::Works::AddFileToFileSet.call(file_set,
-                                        local_file,
-                                        relation,
-                                        versioning: false)
-
-    # Persist changes to the file_set
-    file_set.save!
+    # Prevent other jobs from trying to modify the FileSet at the same time
+    acquire_lock_for(file_set.id) do
+      # Tell AddFileToFileSet service to skip versioning because versions will be minted by
+      # VersionCommitter when necessary during save_characterize_and_record_committer.
+      Hydra::Works::AddFileToFileSet.call(file_set,
+                                          local_file,
+                                          relation,
+                                          versioning: false)
+      # Persist changes to the file_set
+      file_set.save!
+    end
 
     repository_file = file_set.send(relation)
 

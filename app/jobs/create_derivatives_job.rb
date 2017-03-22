@@ -1,4 +1,6 @@
 class CreateDerivativesJob < ActiveJob::Base
+  include CurationConcerns::Lockable
+
   queue_as CurationConcerns.config.ingest_queue_name
 
   # @param [FileSet] file_set
@@ -8,12 +10,15 @@ class CreateDerivativesJob < ActiveJob::Base
     return if file_set.video? && !CurationConcerns.config.enable_ffmpeg
     filename = CurationConcerns::WorkingDirectory.find_or_retrieve(file_id, file_set.id, filepath)
 
-    file_set.create_derivatives(filename)
+    # Prevent other jobs from trying to modify the FileSet at the same time
+    acquire_lock_for(file_set.id) do
+      file_set.create_derivatives(filename)
 
-    # Reload from Fedora and reindex for thumbnail and extracted text
-    file_set.reload
-    file_set.update_index
-    file_set.parent.update_index if parent_needs_reindex?(file_set)
+      # Reload from Fedora and reindex for thumbnail and extracted text
+      file_set.reload
+      file_set.update_index
+      file_set.parent.update_index if parent_needs_reindex?(file_set)
+    end
   end
 
   # If this file_set is the thumbnail for the parent work,
