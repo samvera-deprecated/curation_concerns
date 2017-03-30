@@ -10,18 +10,9 @@ namespace :curation_concerns do
   namespace :migrate do
     desc "Migrate collections"
     task collections: :index do
-      Collection.all.each do |collection|
-        collection.members.each do |member|
-          member.member_of_collections << collection
-          member.save
-        end
-        collection.members = []
-        collection.save
-      end
+      CurationConcerns::DataMigration::CollectionsMigration.run
     end
   end
-end
-namespace :curation_concerns do
   namespace :solr do
     desc "Enqueue a job to resolrize the repository objects"
     task reindex: :environment do
