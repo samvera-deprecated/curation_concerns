@@ -9,7 +9,7 @@ namespace :curation_concerns do
   end
   namespace :migrate do
     desc "Migrate collections"
-    task collections: :index do
+    task collections: :environment do
       CurationConcerns::DataMigration::CollectionsMigration.run
     end
   end
