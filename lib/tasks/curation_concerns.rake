@@ -7,4 +7,16 @@ namespace :curation_concerns do
       puts "  #{model}: #{model.count}"
     end
   end
+  namespace :migrate do
+    desc "Migrate collections"
+    task collections: :environment do
+      CurationConcerns::DataMigration::CollectionsMigration.run
+    end
+  end
+  namespace :solr do
+    desc "Enqueue a job to resolrize the repository objects"
+    task reindex: :environment do
+      ResolrizeJob.perform_later
+    end
+  end
 end
