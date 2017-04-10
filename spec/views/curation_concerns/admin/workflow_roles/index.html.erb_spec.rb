@@ -15,7 +15,7 @@ describe 'curation_concerns/admin/workflow_roles/index.html.erb', type: :view do
   context 'with no users having workflow roles' do
     it 'displays "No Roles" for each user' do
       render
-      expect(rendered).to have_content('No roles', count: 2)
+      expect(rendered).to have_content('No roles', count: User.count)
     end
   end
 
