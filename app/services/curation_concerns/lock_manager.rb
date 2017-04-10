@@ -27,8 +27,7 @@ module CurationConcerns
 
       def uri
         @uri ||= begin
-          opts = options
-          URI("#{opts[:scheme]}://#{opts[:host]}:#{opts[:port]}").to_s
+          options[:url].blank? ? URI("#{options[:scheme]}://#{options[:host]}:#{options[:port]}").to_s : URI(options[:url]).to_s
         end
       end
 
