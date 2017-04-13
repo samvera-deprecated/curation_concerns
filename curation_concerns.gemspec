@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'hydra-works', '>= 0.15.0'
   spec.add_dependency 'active_fedora-noid', '~> 2.0.0.beta5'
   spec.add_dependency 'qa', '~> 0.5'
-  spec.add_dependency 'redlock', '~> 0.1.2'
+  spec.add_dependency 'redlock', '>= 0.1.2'
   spec.add_dependency 'solrizer', '~> 3.4'
   spec.add_dependency 'rdf', '>= 1.99'
   spec.add_dependency 'rdf-vocab', '>= 0.8'
