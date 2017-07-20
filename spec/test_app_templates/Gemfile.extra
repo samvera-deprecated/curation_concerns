@@ -7,4 +7,5 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'i18n', '0.8.1'
 end
