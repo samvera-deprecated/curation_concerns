@@ -8,7 +8,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
 
-  # This change line can be removed once issue at 
+  # This line can be removed once issue at 
   # https://github.com/svenfuchs/i18n/issues/379 is resolved
   gem 'i18n', '0.8.1'
 end
