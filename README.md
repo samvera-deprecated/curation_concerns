@@ -15,8 +15,8 @@ Join in: [![Slack Status](http://slack.projecthydra.org/badge.svg)](http://slack
 
 During 2017, the [Samvera community](http://samvera.org/) consolidated [Sufia](https://github.com/samvera/sufia) and [CurationConcerns](https://github.com/samvera/curation_concerns) into [Hyrax](https://github.com/samvera/hyrax):
 
-* [planning notes on consolidation](https://wiki.duraspace.org/pages/viewpage.action?pageId=78161232))
-* [release notes on the bridge of Sufia to Hyrax](https://github.com/samvera/hyrax/releases/tag/v1.0.0)
+* [planning notes on consolidation](https://wiki.duraspace.org/pages/viewpage.action?pageId=87461232))
+* [release notes on the bridge of Sufia to Hyrax](https://github.com/samvera/hyrax/releases/tag/v1.0.1)
 * [release notes on the bridge of CurationConcerns to Hyrax](https://github.com/samvera/hyrax/releases/tag/v2.0.0)
 * [Samvera documentation for developers and managers](https://samvera.github.io)
 
