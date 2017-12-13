@@ -11,14 +11,16 @@ Docs: [![Apache 2.0 License](http://img.shields.io/badge/APACHE2-license-blue.sv
 
 Join in: [![Slack Status](http://slack.projecthydra.org/badge.svg)](http://slack.projecthydra.org/) [![Ready](https://badge.waffle.io/samvera/curation_concerns.svg?label=ready&title=Ready)](http://waffle.io/samvera/curation_concerns)
 
-# End of Life Notice
+# Shift in Community Focus
 
-We envision the 2.x releases as the end-of-life for CurationConcerns. During 2017, the [Samvera community](http://samvera.org/) consolidated [Sufia](https://github.com/samvera/sufia) and [CurationConcerns](https://github.com/samvera/curation_concerns) into [Hyrax](https://github.com/samvera/hyrax):
+During 2017, the [Samvera community](http://samvera.org/) consolidated [Sufia](https://github.com/samvera/sufia) and [CurationConcerns](https://github.com/samvera/curation_concerns) into [Hyrax](https://github.com/samvera/hyrax):
 
 * [planning notes on consolidation](https://wiki.duraspace.org/pages/viewpage.action?pageId=78161232))
 * [release notes on the bridge of Sufia to Hyrax](https://github.com/samvera/hyrax/releases/tag/v1.0.0)
 * [release notes on the bridge of CurationConcerns to Hyrax](https://github.com/samvera/hyrax/releases/tag/v2.0.0)
 * [Samvera documentation for developers and managers](https://samvera.github.io)
+
+The Samvera Community effort has shifted its attention to developing out Hyrax.
 
 <hr>
 <br>
