@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'active-fedora', '>= 10.3.0.rc1'
   spec.add_dependency 'blacklight', '~> 6.3'
   spec.add_dependency 'breadcrumbs_on_rails', '>= 3.0.1', '< 4'
-  spec.add_dependency 'jquery-ui-rails', '~> 5.0.5'
+  spec.add_dependency 'jquery-ui-rails', '~> 6.0'
   spec.add_dependency 'simple_form', '~> 3.1'
   spec.add_dependency 'hydra-editor', '>= 2', '< 4'
   spec.add_dependency 'rails_autolink'
@@ -49,9 +49,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'solr_wrapper', '~> 0.16'
   spec.add_development_dependency 'fcrepo_wrapper', '~> 0.1'
   spec.add_development_dependency 'devise', '>= 3.0', '< 5'
-  spec.add_development_dependency "bundler", "~> 1.6"
+  spec.add_development_dependency "bundler", ">= 1.17.0"
   spec.add_development_dependency "rake"
-  spec.add_development_dependency "engine_cart", "~> 1.0"
+  spec.add_development_dependency "engine_cart", "~> 2.0"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "rspec-its"
   spec.add_development_dependency "rspec-rails", '~> 3.5'
